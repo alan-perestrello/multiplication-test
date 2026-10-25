@@ -1,0 +1,39 @@
+rules_version = '2';
+
+// Each signed-in user can read and write only their own data under /users/{uid}.
+// Everything else is denied.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    // One document per saved test. `per` is stored as a JSON string because
+    // Firestore does not allow arrays inside arrays.
+    match /users/{uid}/tests/{testId} {
+      allow read, delete: if isOwner(uid);
+      allow create, update: if isOwner(uid)
+        && request.resource.data.keys().hasOnly(['d', 'p', 's', 'per', 'f'])
+        && request.resource.data.keys().hasAll(['d', 'p', 's', 'per'])
+        && request.resource.data.d is number
+        && request.resource.data.p is string
+        && request.resource.data.p.size() <= 40
+        && request.resource.data.s is map
+        && request.resource.data.per is string
+        && request.resource.data.per.size() <= 20000
+        && (!('f' in request.resource.data) || request.resource.data.f is map);
+    }
+
+    // A single document holding the list of names and any id aliases.
+    match /users/{uid}/meta/people {
+      allow read, delete: if isOwner(uid);
+      allow create, update: if isOwner(uid)
+        && request.resource.data.keys().hasOnly(['list', 'alias', 'updated'])
+        && request.resource.data.list is list
+        && request.resource.data.list.size() <= 50
+        && request.resource.data.alias is map
+        && request.resource.data.updated is number;
+    }
+  }
+}
