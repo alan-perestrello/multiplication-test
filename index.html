@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Times Table Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f8ff;--card:#fff;--ink:#1b2a4e;--mute:#5d6b8c;--line:#d5dff3;--accent:#2f5bea;--on-accent:#fff;--sun:#ffc83d;--good:#13795b;--good-bg:#dcf5ea;--bad:#b3261e;--bad-bg:#fde4e2;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1730;--card:#18234a;--ink:#eef2ff;--mute:#a6b3d8;--line:#2d3b6b;--accent:#7e9bff;--on-accent:#0f1730;--good:#6fe0b3;--good-bg:#12352b;--bad:#ff9a92;--bad-bg:#40201f}}
+:root[data-theme="dark"]{--bg:#0f1730;--card:#18234a;--ink:#eef2ff;--mute:#a6b3d8;--line:#2d3b6b;--accent:#7e9bff;--on-accent:#0f1730;--good:#6fe0b3;--good-bg:#12352b;--bad:#ff9a92;--bad-bg:#40201f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Fredoka",system-ui,sans-serif;min-height:100vh;display:flex;justify-content:center;padding:20px}
+main{width:100%;max-width:520px}
+h1{font-size:2rem;margin:8px 0 4px;font-weight:600}
+p.sub{margin:0 0 20px;color:var(--mute)}
+.card{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:22px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+label{font-weight:500}
+.hint{display:block;color:var(--mute);font-size:.85rem;font-weight:400}
+input[type=number]{width:96px;font:inherit;font-size:1.2rem;text-align:center;padding:10px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
+input:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button{font:inherit;font-weight:600;font-size:1.2rem;border:0;border-radius:14px;padding:14px 22px;background:var(--accent);color:var(--on-accent);cursor:pointer;width:100%}
+button.alt{background:transparent;color:var(--ink);border:2px solid var(--line);margin-top:10px}
+.err{color:var(--bad);min-height:1.3em;margin:0 0 10px;font-size:.95rem}
+.top{display:flex;justify-content:space-between;font-weight:600;margin-bottom:10px}
+.bar{height:12px;background:var(--line);border-radius:8px;overflow:hidden;margin-bottom:22px}
+.bar i{display:block;height:100%;width:100%;background:var(--sun);transition:width .25s linear}
+.bar i.low{background:var(--bad)}
+.q{font-size:clamp(3rem,16vw,4.6rem);font-weight:600;text-align:center;margin:10px 0 18px;letter-spacing:.02em}
+.ans{text-align:center;display:block;width:100%!important;font-size:2.4rem!important;margin-bottom:14px}
+.fb{min-height:1.6em;text-align:center;font-weight:600;margin:0 0 12px}
+.fb.ok{color:var(--good)}.fb.no{color:var(--bad)}
+.score{font-size:4rem;font-weight:600;text-align:center;margin:0}
+.msg{text-align:center;color:var(--mute);margin:0 0 18px}
+.stats{display:flex;gap:10px;margin-bottom:18px}
+.stats div{flex:1;text-align:center;background:var(--bg);border-radius:12px;padding:10px}
+.stats b{display:block;font-size:1.4rem}
+ul.rev{list-style:none;padding:0;margin:0 0 6px}
+ul.rev li{display:flex;justify-content:space-between;padding:9px 12px;border-radius:10px;margin-bottom:6px;background:var(--bad-bg);color:var(--bad);font-weight:500}
+#report h2,#rcBody h2{font-size:1.15rem;margin:22px 0 6px}.note{color:var(--mute);margin:0 0 10px;font-size:.92rem}.chart{overflow-x:auto;padding-bottom:6px}.plot{position:relative;height:150px;display:flex;align-items:flex-end;gap:3px;border-bottom:2px solid var(--line)}.plot .col{flex:1 0 12px;height:100%;display:flex;align-items:flex-end}.plot .col i{display:block;width:100%;border-radius:4px 4px 0 0;min-height:3px}.plot .ok{background:var(--good)}.plot .no{background:var(--bad)}.plot .na{background:var(--line)}.avg{position:absolute;left:0;right:0;border-top:2px dashed var(--ink);opacity:.6;pointer-events:none}.trow{display:grid;grid-template-columns:44px 1fr;gap:4px 10px;align-items:center;margin-bottom:12px}.track{height:14px;background:var(--line);border-radius:8px;overflow:hidden}.track i{display:block;height:100%}.tinfo{grid-column:2;font-size:.85rem;color:var(--mute)}.logbox{max-height:320px;overflow:auto;margin-bottom:18px}table.log{width:100%;border-collapse:collapse;font-size:.95rem}table.log th,table.log td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line)}table.log tr.w td{background:var(--bad-bg);color:var(--bad)}
+.plot.v .col{flex:1 0 28px;flex-direction:column;justify-content:flex-end;align-items:stretch}.plot .ac{background:var(--accent)}.val{font-size:.72rem;text-align:center;color:var(--mute);margin-bottom:2px}
+select{font:inherit;font-size:1rem;padding:10px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);max-width:180px}select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+input[type=text]{font:inherit;font-size:1.1rem;padding:10px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);flex:1;min-width:0}#addBtn,#addBtn2{width:auto;padding:10px 18px;font-size:1rem}
+.qline{display:flex;align-items:center;gap:10px;margin-bottom:12px}.qline .bar{flex:1;margin:0;height:8px}.qline .bar i{transition:none}.qline span{font-weight:600;min-width:2.6em;text-align:right;order:2}
+tr.click{cursor:pointer}tr.click:hover td{background:var(--bg)}tr.click:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+details.set{margin:0 0 14px;border:2px solid var(--line);border-radius:12px;padding:8px 12px}details.set summary{cursor:pointer;font-weight:600}details.set summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}dl.sl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:10px 0 2px}dl.sl dt{color:var(--mute)}dl.sl dd{margin:0;font-weight:500}
+.score .pc{font-size:1.8rem;color:var(--mute);white-space:nowrap}
+.hidden{display:none}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<main>
+<section id="setup">
+ <h1>Times table test</h1>
+ <p class="sub">Choose the settings, then press start.</p>
+ <div class="card">
+  <div class="row"><label for="who">Name</label><select id="who"></select></div>
+  <div class="row hidden" id="addRow"><input id="newName" type="text" maxlength="20" placeholder="Type a name" aria-label="New name"><button id="addBtn">Add</button></div>
+  <div class="row"><label for="n">Number of questions</label><input id="n" inputmode="numeric" type="number" min="1" max="100" value="20"></div>
+  <div class="row"><label for="t">Time limit (minutes)<span class="hint">0 means no time limit</span></label><input id="t" inputmode="decimal" type="number" min="0" max="60" step="0.5" value="5"></div>
+  <div class="row"><label for="lo">Tables from</label><input id="lo" inputmode="numeric" type="number" min="1" max="100" value="1"></div>
+  <div class="row"><label for="hi">Tables up to</label><input id="hi" inputmode="numeric" type="number" min="1" max="100" value="12"></div>
+  <div class="row"><label for="mn">Multiply by from<span class="hint">Set to 2 or more to skip the ×1 questions</span></label><input id="mn" inputmode="numeric" type="number" min="1" max="100" value="1"></div>
+  <div class="row"><label for="mx">Multiply by up to<span class="hint">Usually 12</span></label><input id="mx" inputmode="numeric" type="number" min="1" max="100" value="12"></div>
+  <div class="row"><label for="mode">Answer entry<span class="hint">Automatic submits once all the digits are typed</span></label><select id="mode"><option value="enter">Press Enter</option><option value="auto">Automatic</option></select></div>
+  <div class="row"><label for="tmode">Timer mode<span class="hint">Moves on when the time for a question runs out</span></label><select id="tmode"><option value="off">Off</option><option value="on">On</option></select></div>
+  <div class="row hidden" id="tsRow"><label for="tsec">Seconds per question</label><input id="tsec" inputmode="numeric" type="number" min="1" max="120" value="10"></div>
+  <p class="err" id="err" role="alert"></p>
+  <button id="start">Start test</button>
+  <button class="alt" id="cardBtn">View report card</button>
+ </div>
+</section>
+
+<section id="quiz" class="hidden">
+ <div class="top"><span id="prog"></span><span id="clock"></span></div>
+ <div class="bar"><i id="fill"></i></div>
+ <div class="card">
+  <div class="qline hidden" id="qline"><span id="qtime"></span><div class="bar"><i id="qfill"></i></div></div>
+  <div class="q" id="q"></div>
+  <input class="ans" id="a" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" enterkeyhint="done" aria-label="Your answer">
+  <p class="fb" id="fb" aria-live="polite"></p>
+  <button id="go">Check answer</button>
+ </div>
+</section>
+
+<section id="result" class="hidden">
+ <h1>Test finished</h1>
+ <div class="card">
+  <p class="score" id="score"></p>
+  <p class="msg" id="msg"></p>
+  <div class="stats"><div><b id="sc">0</b>correct</div><div><b id="sw">0</b>wrong</div><div><b id="st">0</b>time</div><div><b id="sq">0</b>per min</div></div>
+  <div id="revWrap"><p style="font-weight:600;margin:0 0 8px">Worth another look</p><ul class="rev" id="rev"></ul></div>
+  <p class="note" id="sv"></p>
+  <div id="report"></div>
+  <button id="again">Try again</button>
+  <button class="alt" id="change">Change settings</button>
+  <button class="alt" id="rc2">View report card</button>
+ </div>
+</section>
+<section id="rc" class="hidden">
+ <h1>Report card</h1>
+ <div class="card"><div class="row"><label for="who2">Name</label><select id="who2"></select></div>
+  <div class="row hidden" id="addRow2"><input id="newName2" type="text" maxlength="20" placeholder="Type a name" aria-label="New name"><button id="addBtn2">Add</button></div>
+  <div id="rcBody"></div>
+  <button id="rcBack">Back</button>
+  <button class="alt" id="rcClear">Clear results for this name</button></div>
+</section>
+</main>
+
+<script>
+(function(){
+ var $=function(i){return document.getElementById(i)};
+ var qs,idx,right,wrong,total,limit,startT,timer,locked,run=0,auto=false,tmode=false,perQ=10,held='',cfg=null,log=[],qStart=0;
+
+ function show(id){["setup","quiz","result","rc"].forEach(function(s){$(s).classList.toggle("hidden",s!==id)})}
+ function fmt(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+ function num(id){return parseFloat($(id).value)}
+
+ function build(n,lo,hi,mn,mx){
+  var pool=[],i,j;
+  for(i=lo;i<=hi;i++)for(j=mn;j<=mx;j++)pool.push([i,j]);
+  for(i=pool.length-1;i>0;i--){j=Math.floor(Math.random()*(i+1));var t=pool[i];pool[i]=pool[j];pool[j]=t}
+  var out=[];
+  while(out.length<n){out=out.concat(pool.slice(0,n-out.length));if(out.length<n)pool.sort(function(){return Math.random()-.5})}
+  return out.map(function(p){return Math.random()<.5?[p[0],p[1],p[0]]:[p[1],p[0],p[0]]});
+ }
+
+ function start(){
+  var n=num("n"),t=num("t"),lo=num("lo"),hi=num("hi"),mx=num("mx"),mn=num("mn"),e="";
+  if(!curName())e="Choose a name or add one first.";
+  else if(!(n>=1&&n<=100))e="Questions must be between 1 and 100.";
+  else if(!(t>=0&&t<=60))e="Time limit must be between 0 and 60 minutes.";
+  else if(!(lo>=1&&hi>=lo))e="The first table must be 1 or more and no higher than the last table.";
+  else if($("tmode").value==="on"&&!(num("tsec")>=1&&num("tsec")<=120))e="Seconds per question must be between 1 and 120.";
+  else if(!(mn>=1&&mx>=mn))e="Multiply by from must be 1 or more and no higher than multiply by up to.";
+  $("err").textContent=e;
+  if(e)return;
+  total=Math.floor(n);limit=t*60;auto=$("mode").value==="auto";tmode=$("tmode").value==="on";perQ=num("tsec");cfg={n:total,t:t,lo:Math.floor(lo),hi:Math.floor(hi),mn:Math.floor(mn),mx:Math.floor(mx),m:auto?'auto':'enter',tq:tmode?perQ:0};
+  qs=build(total,Math.floor(lo),Math.floor(hi),Math.floor(mn),Math.floor(mx));
+  run++;idx=0;right=0;wrong=[];log=[];startT=Date.now();
+  show("quiz");next();
+  clearInterval(timer);timer=setInterval(tick,100);tick();
+ }
+
+ function tick(){
+  if(tmode&&!locked){var ql=perQ-(Date.now()-qStart)/1000;$("qtime").textContent=Math.max(0,Math.ceil(ql))+"s";$("qfill").style.width=Math.max(0,ql/perQ*100)+"%";$("qfill").classList.toggle("low",ql<=perQ*.3);if(ql<=0)timeoutQ()}
+  var el=(Date.now()-startT)/1000;
+  if(limit>0){
+   var left=limit-el;
+   $("clock").textContent="Time left "+fmt(left);
+   var f=$("fill");f.style.width=Math.max(0,left/limit*100)+"%";
+   f.classList.toggle("low",left<=limit*.2);
+   if(left<=0)finish(true);
+  }else{
+   $("clock").textContent="Time "+fmt(el);
+   $("fill").style.width=(idx/total*100)+"%";
+  }
+ }
+
+ function next(){
+  locked=false;qStart=Date.now();
+  $("q").textContent=qs[idx][0]+" × "+qs[idx][1];
+  $("prog").textContent="Question "+(idx+1)+" of "+total;
+  $("a").value="";$("fb").textContent="";$("fb").className="fb";
+  $("go").textContent="Check answer";$("go").classList.toggle("hidden",auto);$("qline").classList.toggle("hidden",!tmode);if(tmode){$("qfill").style.width="100%";$("qfill").classList.remove("low");$("qtime").textContent=perQ+"s"}
+  $("a").focus();
+ }
+
+ function submit(){
+  if(locked)return;
+  var v=$("a").value;
+  if(v==="")return;
+  locked=true;
+  held=v;var q=qs[idx],ans=q[0]*q[1],fb=$("fb");
+  if(parseInt(v,10)===ans){right++;fb.textContent="Correct!";fb.className="fb ok"}
+  else{wrong.push(q);fb.textContent="Not quite. "+q[0]+" × "+q[1]+" = "+ans;fb.className="fb no"}
+  var correct=parseInt(v,10)===ans;
+  log.push({q:q,given:parseInt(v,10),ok:correct,secs:(Date.now()-qStart)/1000});
+  var r=run;
+  setTimeout(function(){
+   if(r!==run)return;
+   idx++;
+   if(idx>=total)finish(false);else next();
+  },correct?500:1600);
+ }
+
+ function finish(timeUp){
+  run++;clearInterval(timer);
+  var el=(Date.now()-startT)/1000;
+  if(limit>0&&el>limit)el=limit;
+  if(timeUp){for(var i=idx+(locked?1:0);i<total;i++){wrong.push(qs[i]);log.push({q:qs[i],given:null,ok:false,secs:null})}}
+  var w=wrong.length;
+  $("score").textContent=right+" / "+total;var pc=document.createElement("span");pc.className="pc";pc.textContent=" ("+Math.round(right/total*100)+"%)";$("score").appendChild(pc);
+  $("msg").textContent=timeUp?"Time ran out. Unanswered questions count as wrong.":
+    (w===0?"Perfect score. Brilliant work!":right/total>=.8?"Great effort!":"Good practice. Keep going!");
+  $("sc").textContent=right;$("sw").textContent=w;$("st").textContent=fmt(el);var ts=0,ta=0;log.forEach(function(l){if(l.secs!==null){ta++;ts+=l.secs}});$("sq").textContent=ts>0?(ta/(ts/60)).toFixed(1):"0";
+  var ul=$("rev");ul.innerHTML="";
+  wrong.forEach(function(q){
+   var li=document.createElement("li");
+   var a=document.createElement("span"),b=document.createElement("span");
+   a.textContent=q[0]+" × "+q[1];b.textContent=q[0]*q[1];
+   li.appendChild(a);li.appendChild(b);ul.appendChild(li);
+  });
+  $("revWrap").classList.add("hidden");save();report();
+  show("result");
+ }
+
+ function report(){var R=$('report');R.innerHTML='';function el(tag,cls,txt,par){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;(par||R).appendChild(e);return e}var timed=log.filter(function(l){return l.secs!==null}),times=timed.map(function(l){return l.secs}),avg=times.length?times.reduce(function(a,b){return a+b},0)/times.length:0,max=Math.max.apply(null,times.concat([1]));settingsBox(R,cfg);el('h2','','Time per answer');el('p','note',times.length?'Average '+avg.toFixed(1)+' seconds, fastest '+Math.min.apply(null,times).toFixed(1)+', slowest '+Math.max.apply(null,times).toFixed(1)+'. Green bars are correct answers and red bars are wrong. The dashed line is the average. Full height is '+max.toFixed(1)+' seconds. Questions run from first on the left to last on the right.':'No answers were recorded.');if(times.length){var box=el('div','chart'),plot=el('div','plot',undefined,box);plot.style.minWidth=log.length*15+'px';log.forEach(function(l,i){var c=el('div','col',undefined,plot),b=el('i',l.secs===null?'na':l.ok?'ok':'no',undefined,c);b.style.height=(l.secs===null?0:l.secs/max*100)+'%';c.title='Q'+(i+1)+': '+l.q[0]+' × '+l.q[1]+(l.secs===null?' not answered':', '+l.secs.toFixed(1)+'s')});var a=el('div','avg',undefined,plot);a.style.bottom=(avg/max*100)+'%'}var g={};log.forEach(function(l){var t=l.q[2];g[t]=g[t]||{n:0,ok:0,s:0,k:0};g[t].n++;if(l.ok)g[t].ok++;if(l.secs!==null){g[t].s+=l.secs;g[t].k++}});var keys=Object.keys(g).map(Number).sort(function(a,b){return a-b});el('h2','','Score for each times table');el('p','note','Each question counts towards the table it was drawn from.');keys.forEach(function(t){var d=g[t],p=Math.round(d.ok/d.n*100),row=el('div','trow');el('b','',t+'×',row);var tr=el('div','track',undefined,row),f=el('i','',undefined,tr);f.style.width=p+'%';f.style.background=p>=80?'var(--good)':p>=50?'var(--sun)':'var(--bad)';el('span','tinfo',p+'% correct ('+d.ok+' of '+d.n+')'+(d.k?', average '+(d.s/d.k).toFixed(1)+'s':''),row)});var weak=keys.filter(function(t){return g[t].ok<g[t].n}).sort(function(a,b){return g[a].ok/g[a].n-g[b].ok/g[b].n})[0];if(weak!==undefined)el('p','note','Most to practise: the '+weak+' times table ('+Math.round(g[weak].ok/g[weak].n*100)+'% correct).');el('h2','','Every answer');var lb=el('div','logbox'),tb=el('table','log',undefined,lb),hd=el('tr','',undefined,el('thead','',undefined,tb));['#','Question','Answer','Time'].forEach(function(x){el('th','',x,hd)});var body=el('tbody','',undefined,tb);log.forEach(function(l,i){var r=el('tr',l.ok?'':'w',undefined,body);el('td','',String(i+1),r);el('td','',l.q[0]+' × '+l.q[1]+' = '+l.q[0]*l.q[1],r);el('td','',l.given===null?'No answer':l.ok?'Correct':'Wrote '+l.given,r);el('td','',l.secs===null?'-':l.secs.toFixed(1)+'s',r)})}
+ var KEY='ttt-history-v1',storeOK=true;function load(){try{var d=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(d)?d:[]}catch(e){return []}}function persist(h){try{localStorage.setItem(KEY,JSON.stringify(h.slice(-1000)));return true}catch(e){return false}}function mk(tag,cls,txt,par){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;par.appendChild(e);return e}function fmtDate(ms){return new Date(ms).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}function save(){var h=load();h.push({d:Date.now(),p:P.cur,s:cfg,per:log.map(function(l){return [l.q[2],l.ok?1:0,l.secs===null?null:Math.round(l.secs*10)/10,l.q[0],l.q[1],l.given]})});storeOK=persist(h);$('sv').textContent=storeOK?'Saved to '+curName()+'\u2019s report card.':'This result could not be saved because the browser blocked storage.'}function tile(row,v,l){var d=mk('div','',undefined,row);mk('b','',v,d);d.appendChild(document.createTextNode(l))}function chart(parent,vals,max,fmt){var box=mk('div','chart',undefined,parent),plot=mk('div','plot v',undefined,box);plot.style.minWidth=vals.length*31+'px';vals.forEach(function(v){var c=mk('div','col',undefined,plot);mk('span','val',fmt(v.v),c);var b=mk('i','ac',undefined,c);b.style.height=Math.max(v.v/max*80,2)+'%';c.title=v.t})}function card(){var B=$('rcBody');B.innerHTML='';var h=load().filter(function(t){return t.p===P.cur});if(!h.length){mk('p','note',curName()?'No tests saved yet for '+curName()+'. Finish a test and the results will appear here.':'Choose a name or add one to see a report card.',B);return}var tq=0,ok=0,ans=0,secs=0,tbl={},per=[];h.forEach(function(t){var tn=0,tk=0,ta=0,ts=0;t.per.forEach(function(p){tq++;tn++;ok+=p[1];tk+=p[1];var g=tbl[p[0]]=tbl[p[0]]||{n:0,ok:0,s:0,k:0};g.n++;g.ok+=p[1];if(p[2]!==null){ans++;ta++;secs+=p[2];ts+=p[2];g.s+=p[2];g.k++}});per.push({i:per.length,d:t.d,n:tn,ok:tk,pct:tn?tk/tn*100:0,qpm:ts>0?ta/(ts/60):0})});var r1=mk('div','stats',undefined,B);tile(r1,String(h.length),'tests taken');tile(r1,Math.round(ok/tq*100)+'%','correct overall');var r2=mk('div','stats',undefined,B);tile(r2,secs>0?(ans/(secs/60)).toFixed(1):'0','questions per minute');tile(r2,ans?(secs/ans).toFixed(1)+'s':'-','per answer');var rec=per.slice(-12);mk('h2','','Percentage correct, latest tests',B);chart(B,rec.map(function(p){return {v:p.pct,t:fmtDate(p.d)+': '+Math.round(p.pct)+'%'}}),100,function(v){return Math.round(v)+'%'});var mq=Math.max.apply(null,rec.map(function(p){return p.qpm}).concat([1]));mk('h2','','Questions per minute, latest tests',B);chart(B,rec.map(function(p){return {v:p.qpm,t:fmtDate(p.d)+': '+p.qpm.toFixed(1)+' per minute'}}),mq,function(v){return v.toFixed(1)});mk('p','note','Oldest test on the left, latest on the right.',B);mk('h2','','Each times table',B);var keys=Object.keys(tbl).map(Number).sort(function(a,b){return a-b});keys.forEach(function(t){var d=tbl[t],p=Math.round(d.ok/d.n*100),row=mk('div','trow',undefined,B);mk('b','',t+'×',row);var tr=mk('div','track',undefined,row),f=mk('i','',undefined,tr);f.style.width=p+'%';f.style.background=p>=80?'var(--good)':p>=50?'var(--sun)':'var(--bad)';mk('span','tinfo',p+'% correct ('+d.ok+' of '+d.n+')'+(d.k&&d.s>0?', '+(d.s/d.k).toFixed(1)+'s per answer, '+(d.k/(d.s/60)).toFixed(1)+' per minute':''),row)});var weak=keys.slice().sort(function(a,b){return tbl[a].ok/tbl[a].n-tbl[b].ok/tbl[b].n})[0],slow=keys.filter(function(t){return tbl[t].k}).sort(function(a,b){return tbl[b].s/tbl[b].k-tbl[a].s/tbl[a].k})[0];mk('p','note','Lowest score: the '+weak+' times table ('+Math.round(tbl[weak].ok/tbl[weak].n*100)+'% correct).'+(slow!==undefined?' Slowest: the '+slow+' times table ('+(tbl[slow].s/tbl[slow].k).toFixed(1)+'s per answer).':''),B);mk('h2','','Recent tests',B);mk('p','note','Select a test to see its full result.',B);var lb=mk('div','logbox',undefined,B),tb=mk('table','log',undefined,lb),hd=mk('tr','',undefined,mk('thead','',undefined,tb));['Date','Score','Correct','Per min'].forEach(function(x){mk('th','',x,hd)});var bd=mk('tbody','',undefined,tb);per.slice(-20).reverse().forEach(function(p){var r=mk('tr','click',undefined,bd);r.tabIndex=0;r.setAttribute('role','button');r.title='Show this test';r.onclick=function(){detail(p.i)};r.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();detail(p.i)}};mk('td','',fmtDT(p.d),r);mk('td','',p.ok+' / '+p.n,r);mk('td','',Math.round(p.pct)+'%',r);mk('td','',p.qpm.toFixed(1),r)});mk('p','note','Results are saved in this browser on this device only. Speed counts answered questions only. Questions left unanswered when time runs out count as wrong.',B)}function settingsBox(par,s){var d=mk('details','set',undefined,par);mk('summary','','Test settings',d);if(!s){mk('p','note','Settings were not saved for tests taken before this update.',d);return}var dl=mk('dl','sl',undefined,d);function row(k,v){mk('dt','',k,dl);mk('dd','',v,dl)}function rg(a,b){return a===b?String(a):a+' to '+b}row('Questions',String(s.n));row('Time limit',s.t>0?s.t+(s.t===1?' minute':' minutes'):'No limit');row('Tables',rg(s.lo,s.hi));row('Multiply by',rg(s.mn,s.mx));row('Answer entry',s.m==='auto'?'Automatic':'Press Enter');row('Timer mode',s.tq?'On, '+s.tq+(s.tq===1?' second':' seconds')+' per question':'Off')}function fmtDT(ms){return new Date(ms).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}function detail(i){var B=$('rcBody');B.innerHTML='';var h=load().filter(function(t){return t.p===P.cur}),t=h[i];if(!t){card();return}var bk=mk('button','alt','Back to report card',B);bk.style.marginTop='0';bk.style.marginBottom='8px';bk.onclick=card;mk('h2','','Test on '+fmtDT(t.d),B);settingsBox(B,t.s);var n=t.per.length,ok=0,ta=0,ts=0,g={};t.per.forEach(function(p){ok+=p[1];var x=g[p[0]]=g[p[0]]||{n:0,ok:0,s:0,k:0};x.n++;x.ok+=p[1];if(p[2]!==null){ta++;ts+=p[2];x.s+=p[2];x.k++}});var r1=mk('div','stats',undefined,B);tile(r1,ok+' / '+n,'score');tile(r1,Math.round(ok/n*100)+'%','correct');var r2=mk('div','stats',undefined,B);tile(r2,ts>0?(ta/(ts/60)).toFixed(1):'0','questions per minute');tile(r2,ta?(ts/ta).toFixed(1)+'s':'-','per answer');mk('h2','','Time per answer',B);var times=t.per.filter(function(p){return p[2]!==null}).map(function(p){return p[2]}),max=Math.max.apply(null,times.concat([1]));if(times.length){var box=mk('div','chart',undefined,B),plot=mk('div','plot',undefined,box);plot.style.minWidth=n*15+'px';t.per.forEach(function(p,j){var c=mk('div','col',undefined,plot),b=mk('i',p[2]===null?'na':p[1]?'ok':'no',undefined,c);b.style.height=(p[2]===null?0:p[2]/max*100)+'%';c.title='Q'+(j+1)+(p[2]===null?' not answered':': '+p[2].toFixed(1)+'s')});var av=ta?ts/ta:0,a=mk('div','avg',undefined,plot);a.style.bottom=(av/max*100)+'%';mk('p','note','Green bars are correct and red bars are wrong. The dashed line is the average of '+av.toFixed(1)+' seconds. Full height is '+max.toFixed(1)+' seconds.',B)}else mk('p','note','No answers were recorded.',B);mk('h2','','Each times table',B);Object.keys(g).map(Number).sort(function(a,b){return a-b}).forEach(function(k){var d=g[k],p=Math.round(d.ok/d.n*100),row=mk('div','trow',undefined,B);mk('b','',k+'×',row);var tr=mk('div','track',undefined,row),f=mk('i','',undefined,tr);f.style.width=p+'%';f.style.background=p>=80?'var(--good)':p>=50?'var(--sun)':'var(--bad)';mk('span','tinfo',p+'% correct ('+d.ok+' of '+d.n+')'+(d.k&&d.s>0?', '+(d.s/d.k).toFixed(1)+'s per answer, '+(d.k/(d.s/60)).toFixed(1)+' per minute':''),row)});mk('h2','','Every answer',B);if(t.per[0]&&t.per[0].length>3){var lb=mk('div','logbox',undefined,B),tb=mk('table','log',undefined,lb),hd=mk('tr','',undefined,mk('thead','',undefined,tb));['#','Question','Answer','Time'].forEach(function(x){mk('th','',x,hd)});var bd=mk('tbody','',undefined,tb);t.per.forEach(function(p,j){var r=mk('tr',p[1]?'':'w',undefined,bd);mk('td','',String(j+1),r);mk('td','',p[3]+' × '+p[4]+' = '+p[3]*p[4],r);mk('td','',p[5]===null?'No answer':p[1]?'Correct':'Wrote '+p[5],r);mk('td','',p[2]===null?'-':p[2].toFixed(1)+'s',r)})}else mk('p','note','The individual questions were not saved for tests taken before this update.',B)}
+function openCard(){sync();card();show('rc')}
+ $("start").onclick=start;
+ var PKEY='ttt-people-v1',P=loadP(),CLR='Clear results for this name';function loadP(){try{var d=JSON.parse(localStorage.getItem(PKEY)||'null');if(d&&Array.isArray(d.list))return d}catch(e){}return {list:[],cur:null}}function saveP(){try{localStorage.setItem(PKEY,JSON.stringify(P))}catch(e){}}function curName(){for(var i=0;i<P.list.length;i++)if(P.list[i].id===P.cur)return P.list[i].name;return ''}function sync(){['who','who2'].forEach(function(id){var s=$(id),o;s.innerHTML='';if(!curName()){o=document.createElement('option');o.value='';o.textContent='Choose a name';s.appendChild(o)}P.list.forEach(function(p){o=document.createElement('option');o.value=p.id;o.textContent=p.name;s.appendChild(o)});o=document.createElement('option');o.value='__add';o.textContent='+ Add name';s.appendChild(o);s.value=curName()?P.cur:''})}function bindWho(sid,rid,iid,bid,after){var s=$(sid),r=$(rid),i=$(iid),b=$(bid);s.onchange=function(){if(s.value==='__add'){r.classList.remove('hidden');i.value='';i.focus();s.value=curName()?P.cur:''}else{P.cur=s.value||null;saveP();r.classList.add('hidden');sync();after()}};function add(){var n=i.value.trim().replace(/\s+/g,' ');if(!n)return;var ex=P.list.filter(function(p){return p.name.toLowerCase()===n.toLowerCase()})[0];if(ex)P.cur=ex.id;else{var id=Date.now().toString(36)+Math.random().toString(36).slice(2,5);if(!P.list.length){var h=load();h.forEach(function(t){if(!t.p)t.p=id});persist(h)}P.list.push({id:id,name:n});P.cur=id}saveP();r.classList.add('hidden');sync();after()}b.onclick=add;i.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();add()}})}bindWho('who','addRow','newName','addBtn',function(){$('err').textContent=''});bindWho('who2','addRow2','newName2','addBtn2',card);sync();function timeoutQ(){if(locked)return;locked=true;$('a').value='';held='';var q=qs[idx],r=run;wrong.push(q);log.push({q:q,given:null,ok:false,secs:null});var fb=$('fb');fb.textContent='Time up. '+q[0]+' \u00d7 '+q[1]+' = '+q[0]*q[1];fb.className='fb no';$('qtime').textContent='0s';setTimeout(function(){if(r!==run)return;idx++;if(idx>=total)finish(false);else next()},1600)}$('tmode').onchange=function(){$('tsRow').classList.toggle('hidden',this.value!=='on')};
+ $('cardBtn').onclick=openCard;$('rc2').onclick=openCard;$('rcBack').onclick=function(){show('setup')};var clr=$('rcClear'),clrT;clr.onclick=function(){if(!P.cur)return;if(clr.dataset.arm){persist(load().filter(function(t){return t.p!==P.cur}));clr.dataset.arm='';clr.textContent=CLR;card()}else{clr.dataset.arm='1';clr.textContent='Press again to clear all results for '+curName();clearTimeout(clrT);clrT=setTimeout(function(){clr.dataset.arm='';clr.textContent=CLR},4000)}};
+ $("again").onclick=start;
+ $("change").onclick=function(){run++;clearInterval(timer);show("setup")};
+ $("go").onclick=function(){submit();$("a").focus()};$("quiz").addEventListener("mousedown",function(e){e.preventDefault();$("a").focus()});$("a").addEventListener("blur",function(){if(!$("quiz").classList.contains("hidden"))setTimeout(function(){if(!$("quiz").classList.contains("hidden"))$("a").focus()},0)});
+ $("a").addEventListener("input",function(){if(locked){this.value=held;return}var cl=this.value.replace(/\D/g,"");if(cl!==this.value)this.value=cl;if(!auto)return;var q=qs[idx];if(this.value.length>=String(q[0]*q[1]).length)submit()});
+ $("a").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();submit()}});
+ document.querySelectorAll("#setup input").forEach(function(i){i.addEventListener("keydown",function(e){if(e.key==="Enter")start()})});
+})();
+</script>
+</body>
+</html>
