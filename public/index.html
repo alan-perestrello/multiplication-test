@@ -455,9 +455,9 @@ function openCard(){view=null;sync();renderWho();card();show('rc')}
   });
  }
  function selectView(email){
-  if(!acct||email===acct.email){view=null;card();return}
+  if(!acct||email===acct.email){view=null;renderWho();card();return}
   var u=others.filter(function(x){return x.email===email})[0];if(!u)return;
-  view={email:email,name:u.name,tests:[],loading:true};card();
+  view={email:email,name:u.name,tests:[],loading:true};renderWho();card();
   TTTSync.pull(email).then(function(tests){
    if(!view||view.email!==email)return;
    view.tests=tests.filter(okRec).map(function(t){delete t._id;return t}).sort(function(a,b){return a.d-b.d});view.loading=false;card();
@@ -470,11 +470,14 @@ function openCard(){view=null;sync();renderWho();card();show('rc')}
   if(role){$('acctName').textContent=acct.name;$('addRow').classList.add('hidden');$('addRow2').classList.add('hidden')}
   var priv=role==='admin'||role==='teacher';
   $('who2Row').classList.toggle('hidden',role==='child');
-  $('who2lab').textContent=priv?'Select a name':'Name';
+  $('who2lab').textContent=priv?'Report for':'Name';
   if(priv){
    var s=$('who2');s.innerHTML='';
-   var o=document.createElement('option');o.value=acct.email;o.textContent=acct.name+' (me)';s.appendChild(o);
-   others.forEach(function(u){o=document.createElement('option');o.value=u.email;o.textContent=u.name+(role==='admin'?' ('+u.role+')':'');s.appendChild(o)});
+   var o=document.createElement('option');o.value=acct.email;o.textContent=view?'My results':'Select a name';s.appendChild(o);
+   var list=others.filter(function(u){return u.role==='child'||u.role==='teacher'});
+   var first=function(u){return u.name.split(' ')[0]},seen={};
+   list.forEach(function(u){var f=first(u).toLowerCase();seen[f]=(seen[f]||0)+1});
+   list.slice().sort(function(a,b){return first(a).localeCompare(first(b))||a.name.localeCompare(b.name)}).forEach(function(u){o=document.createElement('option');o.value=u.email;o.textContent=seen[first(u).toLowerCase()]>1?u.name:first(u);s.appendChild(o)});
    s.value=view?view.email:acct.email;
   }
  }
