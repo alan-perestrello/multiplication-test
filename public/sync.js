@@ -2,7 +2,7 @@
 // Loaded as a module. If the config is empty or the SDK cannot load, the app
 // carries on using browser storage only.
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, signOut, onAuthStateChanged }
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import { initializeFirestore, persistentLocalCache, collection, doc, getDoc, getDocs, setDoc, deleteDoc, query, where, writeBatch }
   from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
@@ -11,6 +11,7 @@ var cfg = window.TTT_FIREBASE;
 if (cfg && cfg.apiKey && cfg.appId) {
   var app = initializeApp(cfg);
   var auth = getAuth(app);
+  getRedirectResult(auth).catch(function (e) { window.dispatchEvent(new CustomEvent("tttautherror", { detail: e })); });
   var db;
   try { db = initializeFirestore(app, { localCache: persistentLocalCache() }); }
   catch (e) { db = initializeFirestore(app, {}); }
