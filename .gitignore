@@ -1,0 +1,17 @@
+# Firebase CLI debug logs can contain access tokens. Never commit them.
+firebase-debug.log
+firebase-debug.*.log
+*-debug.log
+ui-debug.log
+firestore-debug.log
+
+# Keys and local secrets
+*.pem
+*-adminsdk-*.json
+*service-account*.json
+.env
+.env.*
+
+# Dependencies and local tooling
+node_modules/
+.firebase/
