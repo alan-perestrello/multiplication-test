@@ -67,18 +67,18 @@ details.set{margin:0 0 14px;border:2px solid var(--line);border-radius:12px;padd
   <div class="row"><label for="who">Name</label><select id="who"></select></div>
   <div class="row hidden" id="addRow"><input id="newName" type="text" maxlength="20" placeholder="Type a name" aria-label="New name"><button id="addBtn">Add</button></div>
   <div class="presets" role="group" aria-label="Quick start">
-   <button type="button" class="preset" data-p="easy" aria-pressed="false">Easy<small>Tables 2 to 5</small></button>
-   <button type="button" class="preset" data-p="all" aria-pressed="false">All tables<small>1 to 12</small></button>
-   <button type="button" class="preset" data-p="hard" aria-pressed="false">Hard<small>Tables 6 to 12</small></button>
+   <button type="button" class="preset" data-p="easy" aria-pressed="false">Easy<small>20 questions, 5 min</small></button>
+   <button type="button" class="preset" data-p="hard" aria-pressed="false">Hard<small>25 questions, timed</small></button>
+   <button type="button" class="preset" data-p="custom" aria-pressed="false">Custom<small>Choose your own</small></button>
   </div>
   <p class="note sum" id="presetSum"></p>
   <details class="set" id="more"><summary>More options</summary>
    <div class="row"><label for="n">Number of questions</label><input id="n" inputmode="numeric" type="number" min="1" max="100" value="20"></div>
    <div class="row"><label for="t">Time limit (minutes)<span class="hint">0 means no time limit</span></label><input id="t" inputmode="decimal" type="number" min="0" max="60" step="0.5" value="5"></div>
    <div class="row"><label for="lo">Tables from</label><input id="lo" inputmode="numeric" type="number" min="1" max="100" value="1"></div>
-   <div class="row"><label for="hi">Tables up to</label><input id="hi" inputmode="numeric" type="number" min="1" max="100" value="12"></div>
+   <div class="row"><label for="hi">Tables up to</label><input id="hi" inputmode="numeric" type="number" min="1" max="100" value="10"></div>
    <div class="row"><label for="mn">Multiply by from<span class="hint">Set to 2 or more to skip the ×1 questions</span></label><input id="mn" inputmode="numeric" type="number" min="1" max="100" value="1"></div>
-   <div class="row"><label for="mx">Multiply by up to<span class="hint">Usually 12</span></label><input id="mx" inputmode="numeric" type="number" min="1" max="100" value="12"></div>
+   <div class="row"><label for="mx">Multiply by up to<span class="hint">Usually 10 or 12</span></label><input id="mx" inputmode="numeric" type="number" min="1" max="100" value="10"></div>
    <div class="row"><label for="mode">Answer entry<span class="hint">Automatic submits once all the digits are typed</span></label><select id="mode"><option value="enter">Press Enter</option><option value="auto">Automatic</option></select></div>
    <div class="row"><label for="tmode">Timer mode<span class="hint">Moves on when the time for a question runs out</span></label><select id="tmode"><option value="off">Off</option><option value="on">On</option></select></div>
    <div class="row hidden" id="tsRow"><label for="tsec">Seconds per question</label><input id="tsec" inputmode="numeric" type="number" min="1" max="120" value="10"></div>
@@ -386,22 +386,45 @@ function openCard(){sync();card();show('rc')}
   };
   fr.readAsText(file);
  }
- var PRESETS={easy:{n:10,t:0,lo:2,hi:5,mn:2,mx:10},all:{n:20,t:5,lo:1,hi:12,mn:1,mx:12},hard:{n:20,t:5,lo:6,hi:12,mn:2,mx:12}},SET_IDS=["n","t","lo","hi","mn","mx","mode","tmode","tsec"];
- function matchPreset(){for(var k in PRESETS){var p=PRESETS[k],same=true;for(var f in p)if(parseFloat($(f).value)!==p[f])same=false;if(same)return k}return ""}
+ var PRESETS={
+  easy:{n:20,t:5,lo:1,hi:10,mn:1,mx:10,mode:"enter",tmode:"off",tsec:null,pad:"auto"},
+  hard:{n:25,t:2.5,lo:1,hi:12,mn:2,mx:12,mode:"enter",tmode:"on",tsec:6,pad:"auto"},
+  custom:{n:30,t:2.5,lo:1,hi:12,mn:2,mx:12,mode:"enter",tmode:"on",tsec:6,pad:"auto"}
+ },SET_IDS=["n","t","lo","hi","mn","mx","mode","tmode","tsec"];
+ function getVals(){var o={};SET_IDS.forEach(function(i){o[i]=$(i).value});o.pad=$("padmode").value;return o}
+ function setVals(p){
+  for(var f in p){if(p[f]===null||p[f]===undefined)continue;$(f==="pad"?"padmode":f).value=String(p[f])}
+  $("tsRow").classList.toggle("hidden",$("tmode").value!=="on");
+  try{localStorage.setItem("ttt-pad-v1",$("padmode").value)}catch(e){}
+ }
+ function matches(p){
+  if(parseFloat($("n").value)!==p.n||parseFloat($("t").value)!==p.t||parseFloat($("lo").value)!==p.lo||parseFloat($("hi").value)!==p.hi||parseFloat($("mn").value)!==p.mn||parseFloat($("mx").value)!==p.mx)return false;
+  if($("mode").value!==p.mode||$("tmode").value!==p.tmode||$("padmode").value!==p.pad)return false;
+  return p.tmode==="off"||parseFloat($("tsec").value)===p.tsec;
+ }
+ function currentPreset(){return matches(PRESETS.easy)?"easy":matches(PRESETS.hard)?"hard":"custom"}
  function refreshPresets(){
-  var m=matchPreset();
+  var m=currentPreset();
   document.querySelectorAll(".preset").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.p===m?"true":"false")});
   var n=num("n"),t=num("t"),lo=num("lo"),hi=num("hi"),mn=num("mn"),mx=num("mx"),txt;
   if(isNaN(n)||isNaN(t)||isNaN(lo)||isNaN(hi)||isNaN(mn)||isNaN(mx)){txt="Check the numbers in More options."}
-  else{txt=(m?"":"Custom: ")+n+(n===1?" question":" questions")+", tables "+lo+" to "+hi+", multiply by "+mn+" to "+mx+", "+(t>0?t+(t===1?" minute":" minutes"):"no time limit");if($("tmode").value==="on")txt+=", "+$("tsec").value+" seconds each";txt+="."}
+  else{txt=n+(n===1?" question":" questions")+", tables "+lo+" to "+hi+", multiply by "+mn+" to "+mx+", "+(t>0?t+(t===1?" minute":" minutes"):"no time limit");if($("tmode").value==="on")txt+=", "+$("tsec").value+" seconds each";txt+="."}
   $("presetSum").textContent=txt;
+  if(m==="custom"&&!isNaN(n)){try{localStorage.setItem("ttt-custom-v1",JSON.stringify(getVals()))}catch(e){}}
  }
  function saveSettings(){try{var o={};SET_IDS.forEach(function(i){o[i]=$(i).value});localStorage.setItem("ttt-settings-v1",JSON.stringify(o))}catch(e){}}
  function initSettings(){
   try{var o=JSON.parse(localStorage.getItem("ttt-settings-v1")||"null");if(o&&typeof o==="object")SET_IDS.forEach(function(i){if(typeof o[i]==="string")$(i).value=o[i]})}catch(e){}
   $("tsRow").classList.toggle("hidden",$("tmode").value!=="on");
-  SET_IDS.forEach(function(i){var up=function(){refreshPresets();saveSettings()};$(i).addEventListener("input",up);$(i).addEventListener("change",up)});
-  document.querySelectorAll(".preset").forEach(function(b){b.onclick=function(){var p=PRESETS[b.dataset.p];for(var f in p)$(f).value=p[f];$("err").textContent="";refreshPresets();saveSettings()}});
+  SET_IDS.concat(["padmode"]).forEach(function(i){var up=function(){refreshPresets();saveSettings()};$(i).addEventListener("input",up);$(i).addEventListener("change",up)});
+  document.querySelectorAll(".preset").forEach(function(b){b.onclick=function(){
+   var k=b.dataset.p;
+   if(k==="custom"){
+    if(currentPreset()!=="custom"){var lc=null;try{lc=JSON.parse(localStorage.getItem("ttt-custom-v1")||"null")}catch(e){}setVals(lc&&typeof lc==="object"?lc:PRESETS.custom)}
+    $("more").open=true;
+   }else setVals(PRESETS[k]);
+   $("err").textContent="";refreshPresets();saveSettings();
+  }});
   refreshPresets();
  }
  function usePad(){var m=$("padmode").value;return m==="on"||(m==="auto"&&!!window.matchMedia&&matchMedia("(pointer: coarse)").matches)}
