@@ -9,15 +9,35 @@ A multiplication test for children. A single web page with no build step. Result
 | `public/index.html` | The app (HTML, CSS and JavaScript) |
 | `public/sync.js` | Optional online sync using Google sign-in and Firestore |
 | `public/firebase-config.js` | Firebase web app config (project identifiers, not secrets) |
-| `firestore.rules` | Security rules: each signed-in user can only reach their own data |
+| `firestore.rules` | Security rules for roles, sharing and results |
 | `firebase.json`, `.firebaserc` | Firebase Hosting and Firestore configuration |
 | `PRODUCT.md` | Design brief |
 
-## Where data lives
+## Accounts and roles
 
-- Always saved in the browser (`localStorage`), so the app works offline and without signing in.
-- If the user signs in with Google, results also sync to Firestore under `users/{uid}`. Several devices signed in to the same Google account see the same results.
-- "Download backup" and "Restore from backup" on the setup screen export and import a JSON file.
+Using the app signed out works as before: names and results stay in the browser on that device. Signing in with Google adds role based online results.
+
+| Role | What they can see |
+|---|---|
+| Admin | Every user's report, and the Users screen to add, edit or remove users |
+| Teacher | Their own results, plus read only reports for children who have chosen that teacher |
+| Child | Only their own results. A child chooses which teachers may see them |
+
+Everyone takes tests as themselves. Admins and teachers use "Select a name" on the report card to view someone else, and that view is read only.
+
+Data is in Firestore, keyed by lowercase Google email, and enforced by `firestore.rules` (not just hidden in the screen):
+
+| Path | Contents | Who writes |
+|---|---|---|
+| `roles/{email}` | `{ name, role }` | Admins only |
+| `shares/{childEmail}` | `{ teachers: [emails] }` | The child |
+| `results/{email}/tests/{id}` | One saved test | The owner only |
+
+`alanperestrello@gmail.com` is the bootstrap admin, hard coded in `firestore.rules` and in `public/index.html`. On that account's first sign-in the app creates the admin entry and the first child entry (`leoperestrello@gmail.com`). Everyone else is added from the Users screen. A Google account that is not in the table can sign in but only uses the device locally.
+
+Results saved online before roles were added (under `users/{uid}`) are no longer readable and are not migrated.
+
+Other storage: "Download backup" and "Restore from backup" on the setup screen export and import a JSON file of what is on the device.
 
 ## One-time Firebase setup
 
