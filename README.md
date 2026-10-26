@@ -13,6 +13,10 @@ A multiplication test for children. A single web page with no build step. Result
 | `firebase.json`, `.firebaserc` | Firebase Hosting and Firestore configuration |
 | `PRODUCT.md` | Design brief |
 
+## Question types
+
+The setup screen has three boxes: multiplication, division, or both. Division questions are built from a times table fact and always divide exactly: 42 ÷ 7 = 6. The divisor is the table number, so "tables 6 to 9" means dividing by 6 to 9, and the "multiply by" range is the range of answers. "Both" mixes the two. Reports and focus tests keep the two operations apart (7× and 7÷ are separate rows). Presets set size and speed only, so they work in every mode.
+
 ## Accounts and roles
 
 Using the app signed out works as before: names and results stay in the browser on that device. Signing in with Google adds role based online results.
