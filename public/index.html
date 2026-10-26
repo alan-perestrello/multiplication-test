@@ -42,7 +42,7 @@ button.alt{background:transparent;color:var(--ink);border:2px solid var(--edge);
 #report h2,#rcBody h2{font-size:1.15rem;margin:22px 0 6px}.note{color:var(--mute);margin:0 0 10px;font-size:.92rem}.chart{overflow-x:auto;padding-bottom:6px}.plot{position:relative;height:150px;display:flex;align-items:flex-end;gap:3px;border-bottom:2px solid var(--line)}.plot .col{flex:1 0 12px;height:100%;display:flex;align-items:flex-end}.plot .col i{display:block;width:100%;border-radius:4px 4px 0 0;min-height:3px}.plot .ok{background:var(--good)}.plot .no{background:var(--bad)}.plot .na{background:var(--line)}.avg{position:absolute;left:0;right:0;border-top:2px dashed var(--ink);opacity:.6;pointer-events:none}.trow{display:grid;grid-template-columns:44px 1fr;gap:4px 10px;align-items:center;margin-bottom:12px}.track{height:14px;background:var(--line);border-radius:8px;overflow:hidden}.track i{display:block;height:100%}.tinfo{grid-column:2;font-size:.85rem;color:var(--mute)}.logbox{max-height:320px;overflow:auto;margin-bottom:18px}table.log{width:100%;border-collapse:collapse;font-size:.95rem}table.log th,table.log td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line)}table.log tr.w td{background:var(--bad-bg);color:var(--bad)}
 .plot.v .col{flex:1 0 28px;flex-direction:column;justify-content:flex-end;align-items:stretch}.plot .ac{background:var(--accent)}.val{font-size:.72rem;text-align:center;color:var(--mute);margin-bottom:2px}
 select{font:inherit;font-size:1rem;padding:10px;border:2px solid var(--edge);border-radius:12px;background:var(--bg);color:var(--ink);max-width:180px}select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-input[type=text]{font:inherit;font-size:1.1rem;padding:10px;border:2px solid var(--edge);border-radius:12px;background:var(--bg);color:var(--ink);flex:1;min-width:0}#addBtn,#addBtn2{width:auto;padding:10px 18px;font-size:1rem}
+input[type=text],input[type=email]{font:inherit;font-size:1.1rem;padding:10px;border:2px solid var(--edge);border-radius:12px;background:var(--bg);color:var(--ink);flex:1;min-width:0}#addBtn,#addBtn2{width:auto;padding:10px 18px;font-size:1rem}
 .qline{display:flex;align-items:center;gap:10px;margin-bottom:12px}.qline .bar{flex:1;margin:0;height:8px}.qline .bar i{transition:none}.qline span{font-weight:600;min-width:2.6em;text-align:right;order:2}
 tr.click{cursor:pointer}tr.click:hover td{background:var(--bg)}tr.click:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
 #report .focus h2,#rcBody .focus h2,.focus h2{font-size:1.15rem;margin:0 0 6px}.focus{margin:0 0 18px;padding-top:14px;border-top:2px solid var(--line)}.trow.f{grid-template-columns:44px 1fr 44px}.trow .tinfo{grid-column:2}button.eye{color:var(--accent);border-color:var(--accent)!important;grid-column:3;grid-row:1/3;align-self:center;width:44px;height:44px;padding:0;margin:0;display:flex;align-items:center;justify-content:center;background:transparent;color:var(--ink);border:2px solid var(--edge);border-radius:12px}button.eye:hover{background:var(--bg)}
@@ -50,6 +50,7 @@ tr.click{cursor:pointer}tr.click:hover td{background:var(--bg)}tr.click:focus-vi
 .pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px;user-select:none;-webkit-user-select:none}.pad button{height:68px;padding:0;font-size:1.7rem;touch-action:manipulation;background:var(--bg);color:var(--ink);border:2px solid var(--edge);border-radius:16px}.pad button:active{background:var(--line)}.pad button.go{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 .presets{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 8px}button.preset{margin:0;padding:10px 4px;font-size:1rem;background:transparent;color:var(--ink);border:2px solid var(--edge)}button.preset small{display:block;font-weight:400;font-size:.78rem;color:var(--mute)}button.preset[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}button.preset[aria-pressed=true] small{color:var(--on-accent)}.sum{margin:0 0 12px}h1:focus{outline:none}
 .ttgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px;margin:0 0 10px}.tt{border-radius:12px;padding:8px 4px;text-align:center;border:2px solid var(--line);background:var(--bg)}.tt b{display:block;font-size:1.05rem}.tt span{font-size:.9rem}.tt.good{background:var(--good-bg);border-color:var(--good)}.tt.mid{border-color:var(--warn)}.tt.low{background:var(--bad-bg);border-color:var(--bad)}.trend{font-weight:600;margin:0 0 6px}.plot.v{justify-content:center}.plot.v .col{max-width:72px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}.head h1{margin:8px 0 4px}.authbar{display:flex;gap:8px;align-items:center;margin-top:12px;font-size:.95rem}.authbar b{font-weight:600}.authbar button{width:auto;padding:8px 14px;font-size:1rem;margin:0}.authbar button.alt{margin:0}.authmsg{margin:0 0 12px}.sm{width:auto!important;padding:6px 12px!important;font-size:.9rem!important;margin:0!important}.who{display:flex;gap:10px;align-items:center;margin:0 0 12px}.chk{display:flex;gap:10px;align-items:center;padding:8px 0}.chk input{width:22px;height:22px}.rolechip{display:inline-block;padding:1px 9px;border-radius:999px;font-size:.78rem;font-weight:600;border:2px solid var(--edge);margin-left:6px}
 .tag{display:inline-block;margin-left:8px;padding:1px 9px;border-radius:999px;font-size:.78rem;font-weight:600;background:var(--accent);color:var(--on-accent)}
 details.set{margin:0 0 14px;border:2px solid var(--line);border-radius:12px;padding:8px 12px}details.set summary{cursor:pointer;font-weight:600}details.set summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}dl.sl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:10px 0 2px}dl.sl dt{color:var(--mute)}dl.sl dd{margin:0;font-weight:500}
 .score .pc{font-size:1.8rem;color:var(--mute);white-space:nowrap}
@@ -60,11 +61,13 @@ details.set{margin:0 0 14px;border:2px solid var(--line);border-radius:12px;padd
 <body>
 <main>
 <section id="setup">
- <h1>Times table test</h1>
+ <div class="head"><h1>Times table test</h1><div class="authbar" id="authBar"></div></div>
  <p class="sub">Choose the settings, then press start.</p>
+ <p class="note authmsg hidden" id="authMsg" role="alert"></p>
  <p class="note hidden" id="storeWarn" role="status"></p>
  <div class="card">
-  <div class="row"><label for="who">Name</label><select id="who"></select></div>
+  <div class="row" id="nameRow"><label for="who">Name</label><select id="who"></select></div>
+  <div class="row hidden" id="acctRow"><span>Taking the test as</span><b id="acctName"></b></div>
   <div class="row hidden" id="addRow"><input id="newName" type="text" maxlength="20" placeholder="Type a name" aria-label="New name"><button id="addBtn">Add</button></div>
   <div class="presets" role="group" aria-label="Quick start">
    <button type="button" class="preset" data-p="easy" aria-pressed="false">Easy<small>20 questions, 5 min</small></button>
@@ -119,9 +122,23 @@ details.set{margin:0 0 14px;border:2px solid var(--line);border-radius:12px;padd
   <button class="alt" id="rc2">View report card</button>
  </div>
 </section>
+<section id="users" class="hidden">
+ <h1>Users</h1>
+ <div class="card">
+  <p class="note">Only admins can see this screen. Each person signs in with their Google email.</p>
+  <div class="logbox" id="userList"></div>
+  <h2 id="uHead" style="font-size:1.15rem;margin:18px 0 8px">Add a user</h2>
+  <div class="row"><label for="uEmail">Email</label><input id="uEmail" type="email" autocomplete="off" placeholder="name@gmail.com" style="max-width:230px"></div>
+  <div class="row"><label for="uName">Name</label><input id="uName" type="text" maxlength="40" placeholder="Shown in reports" style="max-width:230px"></div>
+  <div class="row"><label for="uRole">Role</label><select id="uRole"><option value="child">Child</option><option value="teacher">Teacher</option><option value="admin">Admin</option></select></div>
+  <p class="err" id="uErr" role="alert"></p>
+  <button id="uSave">Save user</button>
+  <button class="alt" id="uBack">Back</button>
+ </div>
+</section>
 <section id="rc" class="hidden">
  <h1>Report card</h1>
- <div class="card"><div class="row"><label for="who2">Name</label><select id="who2"></select></div>
+ <div class="card"><div class="row" id="who2Row"><label for="who2" id="who2lab">Name</label><select id="who2"></select></div>
   <div class="row hidden" id="addRow2"><input id="newName2" type="text" maxlength="20" placeholder="Type a name" aria-label="New name"><button id="addBtn2">Add</button></div>
   <div id="rcBody"></div>
   <button id="rcBack">Back</button>
@@ -132,9 +149,9 @@ details.set{margin:0 0 14px;border:2px solid var(--line);border-radius:12px;padd
 <script>
 (function(){
  var $=function(i){return document.getElementById(i)},PRAISE=["Correct!","Yes!","Nice one!","Spot on!"];
- var qs,idx,right,total,limit,startT,timer,locked,run=0,auto=false,tmode=false,perQ=10,baseQ=0,sched=null,focus=null,lastRec=null,padOn=false,held='',cfg=null,log=[],qStart=0;
+ var qs,idx,right,total,limit,startT,timer,locked,run=0,auto=false,tmode=false,perQ=10,baseQ=0,sched=null,focus=null,lastRec=null,padOn=false,acct=null,view=null,held='',cfg=null,log=[],qStart=0;
 
- function show(id){["setup","quiz","result","rc"].forEach(function(s){$(s).classList.toggle("hidden",s!==id)});if(id==="setup")renderSync();if(id!=="quiz"){var h=$(id).querySelector("h1");if(h){h.tabIndex=-1;h.focus({preventScroll:true})}}}
+ function show(id){["setup","quiz","result","rc","users"].forEach(function(s){$(s).classList.toggle("hidden",s!==id)});if(id==="setup")renderSync();if(id!=="quiz"){var h=$(id).querySelector("h1");if(h){h.tabIndex=-1;h.focus({preventScroll:true})}}}
  function fmt(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
  function num(id){return parseFloat($(id).value)}
 
@@ -150,7 +167,7 @@ details.set{margin:0 0 14px;border:2px solid var(--line);border-radius:12px;padd
 
  function start(){
   var n=num("n"),t=num("t"),lo=num("lo"),hi=num("hi"),mx=num("mx"),mn=num("mn"),e="";
-  if(!curName())e="Choose a name or add one first.";
+  if(!curName())e="Select a name or add one first.";
   else if(!(n>=1&&n<=100))e="Questions must be between 1 and 100.";
   else if(!(t===0||(t>=.5&&t<=60)))e="Time limit must be 0 (no limit) or between 0.5 and 60 minutes.";
   else if(!(lo>=1&&hi>=lo&&hi<=100))e="Tables must be between 1 and 100, and the first no higher than the last.";
@@ -162,7 +179,7 @@ details.set{margin:0 0 14px;border:2px solid var(--line);border-radius:12px;padd
  }
 
  function begin(c,fx){
-  cfg=c;total=c.n;limit=c.t*60;auto=c.m==="auto";tmode=c.tq>0;baseQ=c.tq;focus=fx||null;sched=fx&&fx.k==="time"?fx:null;padOn=usePad();$("a").setAttribute("inputmode",padOn?"none":"numeric");$("pad").classList.toggle("hidden",!padOn);
+  cfg=c;total=c.n;limit=c.t*60;auto=c.m==="auto";tmode=c.tq>0;baseQ=c.tq;focus=fx||null;view=null;sched=fx&&fx.k==="time"?fx:null;padOn=usePad();$("a").setAttribute("inputmode",padOn?"none":"numeric");$("pad").classList.toggle("hidden",!padOn);
   qs=build(total,c.lo,c.hi,c.mn,c.mx);
   run++;idx=0;right=0;log=[];startT=Date.now();
   show("quiz");next();
@@ -229,8 +246,10 @@ details.set{margin:0 0 14px;border:2px solid var(--line);border-radius:12px;padd
  function report(){var R=$('report');R.innerHTML='';function el(tag,cls,txt,par){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;(par||R).appendChild(e);return e}var timed=log.filter(function(l){return l.secs!==null}),times=timed.map(function(l){return l.secs}),avg=times.length?times.reduce(function(a,b){return a+b},0)/times.length:0,max=Math.max.apply(null,times.concat([1]));settingsBox(R,cfg,focus);el('h2','','Time per answer');el('p','note',times.length?'Average '+avg.toFixed(1)+' seconds, fastest '+Math.min.apply(null,times).toFixed(1)+', slowest '+Math.max.apply(null,times).toFixed(1)+'. Green bars are correct answers and red bars are wrong. The dashed line is the average. Full height is '+max.toFixed(1)+' seconds. Questions run from first on the left to last on the right.':'No answers were recorded.');if(times.length){var box=el('div','chart'),plot=el('div','plot',undefined,box);plot.style.minWidth=log.length*15+'px';log.forEach(function(l,i){var c=el('div','col',undefined,plot),b=el('i',l.secs===null?'na':l.ok?'ok':'no',undefined,c);b.style.height=(l.secs===null?0:l.secs/max*100)+'%';c.title='Q'+(i+1)+': '+l.q[0]+' × '+l.q[1]+(l.secs===null?' not answered':', '+l.secs.toFixed(1)+'s')});var a=el('div','avg',undefined,plot);a.style.bottom=(avg/max*100)+'%'}var g={};log.forEach(function(l){var t=l.q[2];g[t]=g[t]||{n:0,ok:0,s:0,k:0};g[t].n++;if(l.ok)g[t].ok++;if(l.secs!==null){g[t].s+=l.secs;g[t].k++}});var keys=Object.keys(g).map(Number).sort(function(a,b){return a-b});el('h2','','Score for each times table');el('p','note','Each question counts towards the table it was drawn from.'+eyeHint(lastRec,right<total));keys.forEach(function(t){var d=g[t],p=Math.round(d.ok/d.n*100),row=el('div','trow');el('b','',t+'×',row);var tr=el('div','track',undefined,row),f=el('i','',undefined,tr);f.style.width=p+'%';f.style.background=p>=80?'var(--good)':p>=50?'var(--warn)':'var(--bad)';el('span','tinfo',p+'% correct ('+d.ok+' of '+d.n+')'+(d.k?', average '+(d.s/d.k).toFixed(1)+'s':''),row);eyeBtn(row,t,lastRec,d.ok<d.n)});var weak=keys.filter(function(t){return g[t].ok<g[t].n}).sort(function(a,b){return g[a].ok/g[a].n-g[b].ok/g[b].n})[0];if(weak!==undefined)el('p','note','Most to practise: the '+weak+' times table ('+Math.round(g[weak].ok/g[weak].n*100)+'% correct).');el('h2','','Every answer');var lb=el('div','logbox'),tb=el('table','log',undefined,lb),hd=el('tr','',undefined,el('thead','',undefined,tb));['#','Question','Answer','Time'].forEach(function(x){el('th','',x,hd)});var body=el('tbody','',undefined,tb);log.forEach(function(l,i){var r=el('tr',l.ok?'':'w',undefined,body);el('td','',String(i+1),r);el('td','',l.q[0]+' × '+l.q[1]+' = '+l.q[0]*l.q[1],r);el('td','',l.given===null?'No answer':l.ok?'Correct':'Wrote '+l.given,r);el('td','',l.secs===null?'-':l.secs.toFixed(1)+'s',r)})}
  var KEY='ttt-history-v1',storeOK=true;function okRec(t){return !!t&&typeof t==='object'&&Array.isArray(t.per)&&t.per.length>0&&t.per.every(function(p){return Array.isArray(p)&&p.length>=3})}function load(){try{var d=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(d)?d.filter(okRec):[]}catch(e){return []}}function canStore(){try{localStorage.setItem('ttt-probe','1');localStorage.removeItem('ttt-probe');return true}catch(e){return false}}function persist(h){try{localStorage.setItem(KEY,JSON.stringify(h.slice(-1000)));return true}catch(e){return false}}function mk(tag,cls,txt,par){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;par.appendChild(e);return e}function fmtDate(ms){return new Date(ms).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}function save(){var h=load(),rec={d:Date.now(),p:P.cur,s:cfg,per:log.map(function(l){return [l.q[2],l.ok?1:0,l.secs===null?null:Math.round(l.secs*10)/10,l.q[0],l.q[1],l.given]})};if(focus)rec.f=focus;lastRec=rec;h.push(rec);storeOK=persist(h);cloudPush(rec);$('sv').textContent=storeOK?'Saved to '+curName()+'\u2019s report card.':'This result could not be saved because the browser blocked storage.'}function tile(row,v,l){var d=mk('div','',undefined,row);mk('b','',v,d);d.appendChild(document.createTextNode(l))}function chart(parent,vals,max,fmt){var box=mk('div','chart',undefined,parent),plot=mk('div','plot v',undefined,box);plot.style.minWidth=vals.length*31+'px';vals.forEach(function(v){var c=mk('div','col',undefined,plot);mk('span','val',fmt(v.v),c);var b=mk('i','ac',undefined,c);b.style.height=Math.max(v.v/max*80,2)+'%';c.title=v.t})}function card(){
  var B=$('rcBody');B.innerHTML='';
- var h=load().filter(function(t){return t.p===P.cur});
- if(!h.length){mk('p','note',curName()?'No tests saved yet for '+curName()+'. Finish a test and the results will appear here.':'Choose a name or add one to see a report card.',B);return}
+ $('rcClear').classList.toggle('hidden',!!view);
+ if(view){mk('p','note','Viewing '+view.name+'\u2019s results. Read only.',B);if(view.loading){mk('p','note','Loading...',B);return}if(view.error){mk('p','note','These results could not be loaded. Check your connection and try again.',B);return}}
+ var h=viewList();
+ if(!h.length){mk('p','note',viewName()?'No tests saved yet for '+viewName()+'.'+(view?'':' Finish a test and the results will appear here.'):'Select a name or add one to see a report card.',B);return}
  var tq=0,ok=0,ans=0,secs=0,tbl={},per=[];
  h.forEach(function(t){var tn=0,tk=0,ta=0,ts=0;t.per.forEach(function(p){tq++;tn++;ok+=p[1];tk+=p[1];var g=tbl[p[0]]=tbl[p[0]]||{n:0,ok:0,s:0,k:0};g.n++;g.ok+=p[1];if(p[2]!==null){ans++;ta++;secs+=p[2];ts+=p[2];g.s+=p[2];g.k++}});per.push({i:per.length,d:t.d,n:tn,ok:tk,pct:tn?tk/tn*100:0,qpm:ts>0?ta/(ts/60):0,f:t.f})});
  var r1=mk('div','stats',undefined,B);tile(r1,String(h.length),'tests taken');tile(r1,Math.round(ok/tq*100)+'%','correct overall');
@@ -274,7 +293,7 @@ details.set{margin:0 0 14px;border:2px solid var(--line);border-radius:12px;padd
  per.slice(-20).reverse().forEach(function(p){var r=mk('tr','click',undefined,bd);r.tabIndex=0;r.setAttribute('role','button');r.title='Show this test';r.onclick=function(){detail(p.i)};r.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();detail(p.i)}};var dc=mk('td','',fmtDT(p.d),r);if(p.f)mk('span','tag','Focused',dc);mk('td','',p.ok+' / '+p.n,r);mk('td','',Math.round(p.pct)+'%',r);mk('td','',p.qpm.toFixed(1),r)});
  mk('p','note','Results are saved in this browser on this device, and online if you are signed in. Speed counts answered questions only. Questions left unanswered when time runs out count as wrong.',B);
 }
-function settingsBox(par,s,f){var d=mk('details','set',undefined,par);mk('summary','','Test settings',d);if(!s){mk('p','note','Settings were not saved for tests taken before this update.',d);return}var dl=mk('dl','sl',undefined,d);function row(k,v){mk('dt','',k,dl);mk('dd','',v,dl)}function rg(a,b){return a===b?String(a):a+' to '+b}if(f)row('Focused test',f.k==='table'?'Times table '+f.t+' and its neighbours':'Answering in time');row('Questions',String(s.n));row('Time limit',s.t>0?s.t+(s.t===1?' minute':' minutes'):'No limit');row('Tables',rg(s.lo,s.hi));row('Multiply by',rg(s.mn,s.mx));row('Answer entry',s.m==='auto'?'Automatic':'Press Enter');row('Timer mode',f&&f.k==='time'?'On, '+f.from+(f.from>f.to?' down to '+f.to:'')+' seconds per question':s.tq?'On, '+s.tq+(s.tq===1?' second':' seconds')+' per question':'Off')}function fmtDT(ms){return new Date(ms).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}function detail(i){var B=$('rcBody');B.innerHTML='';var h=load().filter(function(t){return t.p===P.cur}),t=h[i];if(!t){card();return}var bk=mk('button','alt','Back to report card',B);bk.style.marginTop='0';bk.style.marginBottom='8px';bk.onclick=card;mk('h2','','Test on '+fmtDT(t.d),B);if(t.f){var oi=-1;h.forEach(function(x,j){if(x.d===t.f.o)oi=j});mk('p','note','Focused test on '+(t.f.k==='table'?'the '+t.f.t+' times table and its neighbours':'answering in time')+'.',B);if(oi>=0){var ob=mk('button','alt','View the original test',B);ob.style.marginBottom='12px';ob.onclick=function(){detail(oi)}}else mk('p','note','The original test is no longer saved.',B)}settingsBox(B,t.s,t.f);var n=t.per.length,ok=0,ta=0,ts=0,g={};t.per.forEach(function(p){ok+=p[1];var x=g[p[0]]=g[p[0]]||{n:0,ok:0,s:0,k:0};x.n++;x.ok+=p[1];if(p[2]!==null){ta++;ts+=p[2];x.s+=p[2];x.k++}});var r1=mk('div','stats',undefined,B);tile(r1,ok+' / '+n,'score');tile(r1,Math.round(ok/n*100)+'%','correct');var r2=mk('div','stats',undefined,B);tile(r2,ts>0?(ta/(ts/60)).toFixed(1):'0','questions per minute');tile(r2,ta?(ts/ta).toFixed(1)+'s':'-','per answer');focusBox(B,t);var kids=[];h.forEach(function(x,j){if(x.f&&x.f.o===t.d)kids.push(j)});if(kids.length){mk('h2','','Focused tests from this test',B);kids.forEach(function(j){var x=h[j],xo=0;x.per.forEach(function(p){xo+=p[1]});var kb=mk('button','alt',fmtDT(x.d)+': '+xo+' / '+x.per.length,B);kb.onclick=function(){detail(j)}})}mk('h2','','Time per answer',B);var times=t.per.filter(function(p){return p[2]!==null}).map(function(p){return p[2]}),max=Math.max.apply(null,times.concat([1]));if(times.length){var box=mk('div','chart',undefined,B),plot=mk('div','plot',undefined,box);plot.style.minWidth=n*15+'px';t.per.forEach(function(p,j){var c=mk('div','col',undefined,plot),b=mk('i',p[2]===null?'na':p[1]?'ok':'no',undefined,c);b.style.height=(p[2]===null?0:p[2]/max*100)+'%';c.title='Q'+(j+1)+(p[2]===null?' not answered':': '+p[2].toFixed(1)+'s')});var av=ta?ts/ta:0,a=mk('div','avg',undefined,plot);a.style.bottom=(av/max*100)+'%';mk('p','note','Green bars are correct and red bars are wrong. The dashed line is the average of '+av.toFixed(1)+' seconds. Full height is '+max.toFixed(1)+' seconds.',B)}else mk('p','note','No answers were recorded.',B);mk('h2','','Each times table',B);if(eyeHint(t,ok<n))mk('p','note',eyeHint(t,ok<n).trim(),B);Object.keys(g).map(Number).sort(function(a,b){return a-b}).forEach(function(k){var d=g[k],p=Math.round(d.ok/d.n*100),row=mk('div','trow',undefined,B);mk('b','',k+'×',row);var tr=mk('div','track',undefined,row),f=mk('i','',undefined,tr);f.style.width=p+'%';f.style.background=p>=80?'var(--good)':p>=50?'var(--warn)':'var(--bad)';mk('span','tinfo',p+'% correct ('+d.ok+' of '+d.n+')'+(d.k&&d.s>0?', '+(d.s/d.k).toFixed(1)+'s per answer, '+(d.k/(d.s/60)).toFixed(1)+' per minute':''),row);eyeBtn(row,k,t,d.ok<d.n)});mk('h2','','Every answer',B);if(t.per[0]&&t.per[0].length>3){var lb=mk('div','logbox',undefined,B),tb=mk('table','log',undefined,lb),hd=mk('tr','',undefined,mk('thead','',undefined,tb));['#','Question','Answer','Time'].forEach(function(x){mk('th','',x,hd)});var bd=mk('tbody','',undefined,tb);t.per.forEach(function(p,j){var r=mk('tr',p[1]?'':'w',undefined,bd);mk('td','',String(j+1),r);mk('td','',p[3]+' × '+p[4]+' = '+p[3]*p[4],r);mk('td','',p[5]===null?'No answer':p[1]?'Correct':'Wrote '+p[5],r);mk('td','',p[2]===null?'-':p[2].toFixed(1)+'s',r)})}else mk('p','note','The individual questions were not saved for tests taken before this update.',B)}
+function settingsBox(par,s,f){var d=mk('details','set',undefined,par);mk('summary','','Test settings',d);if(!s){mk('p','note','Settings were not saved for tests taken before this update.',d);return}var dl=mk('dl','sl',undefined,d);function row(k,v){mk('dt','',k,dl);mk('dd','',v,dl)}function rg(a,b){return a===b?String(a):a+' to '+b}if(f)row('Focused test',f.k==='table'?'Times table '+f.t+' and its neighbours':'Answering in time');row('Questions',String(s.n));row('Time limit',s.t>0?s.t+(s.t===1?' minute':' minutes'):'No limit');row('Tables',rg(s.lo,s.hi));row('Multiply by',rg(s.mn,s.mx));row('Answer entry',s.m==='auto'?'Automatic':'Press Enter');row('Timer mode',f&&f.k==='time'?'On, '+f.from+(f.from>f.to?' down to '+f.to:'')+' seconds per question':s.tq?'On, '+s.tq+(s.tq===1?' second':' seconds')+' per question':'Off')}function fmtDT(ms){return new Date(ms).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}function detail(i){var B=$('rcBody');B.innerHTML='';$('rcClear').classList.toggle('hidden',!!view);var h=viewList(),t=h[i];if(!t){card();return}var bk=mk('button','alt','Back to report card',B);bk.style.marginTop='0';bk.style.marginBottom='8px';bk.onclick=card;mk('h2','','Test on '+fmtDT(t.d),B);if(t.f){var oi=-1;h.forEach(function(x,j){if(x.d===t.f.o)oi=j});mk('p','note','Focused test on '+(t.f.k==='table'?'the '+t.f.t+' times table and its neighbours':'answering in time')+'.',B);if(oi>=0){var ob=mk('button','alt','View the original test',B);ob.style.marginBottom='12px';ob.onclick=function(){detail(oi)}}else mk('p','note','The original test is no longer saved.',B)}settingsBox(B,t.s,t.f);var n=t.per.length,ok=0,ta=0,ts=0,g={};t.per.forEach(function(p){ok+=p[1];var x=g[p[0]]=g[p[0]]||{n:0,ok:0,s:0,k:0};x.n++;x.ok+=p[1];if(p[2]!==null){ta++;ts+=p[2];x.s+=p[2];x.k++}});var r1=mk('div','stats',undefined,B);tile(r1,ok+' / '+n,'score');tile(r1,Math.round(ok/n*100)+'%','correct');var r2=mk('div','stats',undefined,B);tile(r2,ts>0?(ta/(ts/60)).toFixed(1):'0','questions per minute');tile(r2,ta?(ts/ta).toFixed(1)+'s':'-','per answer');focusBox(B,t);var kids=[];h.forEach(function(x,j){if(x.f&&x.f.o===t.d)kids.push(j)});if(kids.length){mk('h2','','Focused tests from this test',B);kids.forEach(function(j){var x=h[j],xo=0;x.per.forEach(function(p){xo+=p[1]});var kb=mk('button','alt',fmtDT(x.d)+': '+xo+' / '+x.per.length,B);kb.onclick=function(){detail(j)}})}mk('h2','','Time per answer',B);var times=t.per.filter(function(p){return p[2]!==null}).map(function(p){return p[2]}),max=Math.max.apply(null,times.concat([1]));if(times.length){var box=mk('div','chart',undefined,B),plot=mk('div','plot',undefined,box);plot.style.minWidth=n*15+'px';t.per.forEach(function(p,j){var c=mk('div','col',undefined,plot),b=mk('i',p[2]===null?'na':p[1]?'ok':'no',undefined,c);b.style.height=(p[2]===null?0:p[2]/max*100)+'%';c.title='Q'+(j+1)+(p[2]===null?' not answered':': '+p[2].toFixed(1)+'s')});var av=ta?ts/ta:0,a=mk('div','avg',undefined,plot);a.style.bottom=(av/max*100)+'%';mk('p','note','Green bars are correct and red bars are wrong. The dashed line is the average of '+av.toFixed(1)+' seconds. Full height is '+max.toFixed(1)+' seconds.',B)}else mk('p','note','No answers were recorded.',B);mk('h2','','Each times table',B);if(eyeHint(t,ok<n))mk('p','note',eyeHint(t,ok<n).trim(),B);Object.keys(g).map(Number).sort(function(a,b){return a-b}).forEach(function(k){var d=g[k],p=Math.round(d.ok/d.n*100),row=mk('div','trow',undefined,B);mk('b','',k+'×',row);var tr=mk('div','track',undefined,row),f=mk('i','',undefined,tr);f.style.width=p+'%';f.style.background=p>=80?'var(--good)':p>=50?'var(--warn)':'var(--bad)';mk('span','tinfo',p+'% correct ('+d.ok+' of '+d.n+')'+(d.k&&d.s>0?', '+(d.s/d.k).toFixed(1)+'s per answer, '+(d.k/(d.s/60)).toFixed(1)+' per minute':''),row);eyeBtn(row,k,t,d.ok<d.n)});mk('h2','','Every answer',B);if(t.per[0]&&t.per[0].length>3){var lb=mk('div','logbox',undefined,B),tb=mk('table','log',undefined,lb),hd=mk('tr','',undefined,mk('thead','',undefined,tb));['#','Question','Answer','Time'].forEach(function(x){mk('th','',x,hd)});var bd=mk('tbody','',undefined,tb);t.per.forEach(function(p,j){var r=mk('tr',p[1]?'':'w',undefined,bd);mk('td','',String(j+1),r);mk('td','',p[3]+' × '+p[4]+' = '+p[3]*p[4],r);mk('td','',p[5]===null?'No answer':p[1]?'Correct':'Wrote '+p[5],r);mk('td','',p[2]===null?'-':p[2].toFixed(1)+'s',r)})}else mk('p','note','The individual questions were not saved for tests taken before this update.',B)}
 function analyse(t){
  if(!t||!t.s||!t.per)return null;
  var miss=0,to=0,sum=0,k=0;
@@ -294,7 +313,7 @@ function focusPlan(rec,a){
   why:a.n+' of '+a.of+' missed questions ran out of time.',
   what:s.n+' timed questions, '+(a.from>a.to?'starting at '+a.from+' seconds and dropping 1 second every 5 questions down to '+a.to+' seconds.':a.to+' seconds each.')};
 }
-function eyeHint(rec,miss){return miss&&rec&&!rec.f&&rec.s?' Tap the eye on a table you got wrong to practise it.':''}
+function eyeHint(rec,miss){return miss&&rec&&!rec.f&&rec.s&&!view?' Tap the eye on a table you got wrong to practise it.':''}
 function eyeSvg(){
  var NS='http://www.w3.org/2000/svg',v=document.createElementNS(NS,'svg');
  [['viewBox','0 0 24 24'],['width','24'],['height','24'],['fill','none'],['stroke','currentColor'],['stroke-width','2'],['stroke-linecap','round'],['stroke-linejoin','round'],['aria-hidden','true']].forEach(function(a){v.setAttribute(a[0],a[1])});
@@ -303,7 +322,7 @@ function eyeSvg(){
  return v;
 }
 function eyeBtn(row,tbl,rec,miss){
- if(!rec||rec.f||!rec.s)return;
+ if(!rec||rec.f||!rec.s||view)return;
  row.classList.add('f');
  if(!miss)return;
  var b=mk('button','eye',undefined,row),label='Focused test on the '+tbl+' times table';
@@ -311,25 +330,30 @@ function eyeBtn(row,tbl,rec,miss){
  b.onclick=function(){var pl=focusPlan(rec,{k:'table',t:tbl,n:0,of:0});begin(pl.c,pl.fx)};
 }
 function focusBox(par,rec){
- if(!rec||rec.f)return;
+ if(!rec||rec.f||view)return;
  var a=analyse(rec);if(!a)return;
  var pl=focusPlan(rec,a),b=mk('div','focus',undefined,par);
  mk('h2','','Practise your weak spot',b);mk('p','note',pl.why+' '+pl.what,b);
  var go=mk('button','','Start focused test',b);go.onclick=function(){begin(pl.c,pl.fx)};
 }
-function openCard(){sync();card();show('rc')}
+function openCard(){view=null;sync();renderWho();card();show('rc')}
  $("start").onclick=start;
- var PKEY='ttt-people-v1',P=loadP(),CLR='Clear results for this name';function loadP(){try{var d=JSON.parse(localStorage.getItem(PKEY)||'null');if(d&&Array.isArray(d.list)){d.list=d.list.filter(function(p){return !!p&&typeof p.id==='string'&&typeof p.name==='string'});if(!d.alias||typeof d.alias!=='object')d.alias={};return d}}catch(e){}return {list:[],cur:null,alias:{}}}function saveP(){try{localStorage.setItem(PKEY,JSON.stringify(P))}catch(e){}}function curName(){for(var i=0;i<P.list.length;i++)if(P.list[i].id===P.cur)return P.list[i].name;return ''}function sync(){['who','who2'].forEach(function(id){var s=$(id),o;s.innerHTML='';if(!curName()){o=document.createElement('option');o.value='';o.textContent='Choose a name';s.appendChild(o)}P.list.forEach(function(p){o=document.createElement('option');o.value=p.id;o.textContent=p.name;s.appendChild(o)});o=document.createElement('option');o.value='__add';o.textContent='+ Add name';s.appendChild(o);s.value=curName()?P.cur:''})}function bindWho(sid,rid,iid,bid,after){var s=$(sid),r=$(rid),i=$(iid),b=$(bid);s.onchange=function(){if(s.value==='__add'){r.classList.remove('hidden');i.value='';i.focus();s.value=curName()?P.cur:''}else{P.cur=s.value||null;saveP();r.classList.add('hidden');sync();after()}};function add(){var n=i.value.trim().replace(/\s+/g,' ');if(!n)return;var ex=P.list.filter(function(p){return p.name.toLowerCase()===n.toLowerCase()})[0];if(ex)P.cur=ex.id;else{var id=Date.now().toString(36)+Math.random().toString(36).slice(2,5);if(!P.list.length){var h=load();h.forEach(function(t){if(!t.p)t.p=id});persist(h)}P.list.push({id:id,name:n});P.cur=id}saveP();cloudPeople();r.classList.add('hidden');sync();after()}b.onclick=add;i.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();add()}})}bindWho('who','addRow','newName','addBtn',function(){$('err').textContent=''});bindWho('who2','addRow2','newName2','addBtn2',card);sync();function timeoutQ(){if(locked)return;locked=true;$('a').value='';held='';var q=qs[idx],r=run;log.push({q:q,given:null,ok:false,secs:null});var fb=$('fb');fb.textContent='Time up. '+q[0]+' \u00d7 '+q[1]+' = '+q[0]*q[1];fb.className='fb no';$('a').className='ans no';$('qtime').textContent='0s';setTimeout(function(){if(r!==run)return;idx++;if(idx>=total)finish(false);else next()},1600)}$('tmode').onchange=function(){$('tsRow').classList.toggle('hidden',this.value!=='on')};
- $('cardBtn').onclick=openCard;$('rc2').onclick=openCard;$('rcBack').onclick=function(){show('setup')};var clr=$('rcClear'),clrT;clr.onclick=function(){if(!P.cur)return;if(clr.dataset.arm){var gone=P.cur;persist(load().filter(function(t){return t.p!==P.cur}));cloudClear(gone);clr.dataset.arm='';clr.textContent=CLR;card()}else{clr.dataset.arm='1';clr.textContent='Press again to clear all results for '+curName();clearTimeout(clrT);clrT=setTimeout(function(){clr.dataset.arm='';clr.textContent=CLR},4000)}};
+ var PKEY='ttt-people-v1',P=loadP(),CLR='Clear results for this name';function loadP(){try{var d=JSON.parse(localStorage.getItem(PKEY)||'null');if(d&&Array.isArray(d.list)){d.list=d.list.filter(function(p){return !!p&&typeof p.id==='string'&&typeof p.name==='string'});if(!d.alias||typeof d.alias!=='object')d.alias={};return d}}catch(e){}return {list:[],cur:null,alias:{}}}function saveP(){try{localStorage.setItem(PKEY,JSON.stringify(P))}catch(e){}}function curName(){for(var i=0;i<P.list.length;i++)if(P.list[i].id===P.cur&&(!P.list[i].acct||(acct&&acct.email===P.list[i].id)))return P.list[i].name;return ''}function sync(){['who','who2'].forEach(function(id){if(acct&&acct.role)return;var s=$(id),o;s.innerHTML='';if(!curName()){o=document.createElement('option');o.value='';o.textContent='Select a name';s.appendChild(o)}P.list.filter(function(p){return !p.acct}).forEach(function(p){o=document.createElement('option');o.value=p.id;o.textContent=p.name;s.appendChild(o)});o=document.createElement('option');o.value='__add';o.textContent='+ Add name';s.appendChild(o);s.value=curName()?P.cur:''})}function bindWho(sid,rid,iid,bid,after){var s=$(sid),r=$(rid),i=$(iid),b=$(bid);s.onchange=function(){if(acct&&acct.role&&sid==='who2'){selectView(s.value);return}if(s.value==='__add'){r.classList.remove('hidden');i.value='';i.focus();s.value=curName()?P.cur:''}else{P.cur=s.value||null;saveP();r.classList.add('hidden');sync();after()}};function add(){var n=i.value.trim().replace(/\s+/g,' ');if(!n)return;var ex=P.list.filter(function(p){return p.name.toLowerCase()===n.toLowerCase()})[0];if(ex)P.cur=ex.id;else{var id=Date.now().toString(36)+Math.random().toString(36).slice(2,5);if(!P.list.length){var h=load();h.forEach(function(t){if(!t.p)t.p=id});persist(h)}P.list.push({id:id,name:n});P.cur=id}saveP();r.classList.add('hidden');sync();after()}b.onclick=add;i.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();add()}})}bindWho('who','addRow','newName','addBtn',function(){$('err').textContent=''});bindWho('who2','addRow2','newName2','addBtn2',card);sync();function timeoutQ(){if(locked)return;locked=true;$('a').value='';held='';var q=qs[idx],r=run;log.push({q:q,given:null,ok:false,secs:null});var fb=$('fb');fb.textContent='Time up. '+q[0]+' \u00d7 '+q[1]+' = '+q[0]*q[1];fb.className='fb no';$('a').className='ans no';$('qtime').textContent='0s';setTimeout(function(){if(r!==run)return;idx++;if(idx>=total)finish(false);else next()},1600)}$('tmode').onchange=function(){$('tsRow').classList.toggle('hidden',this.value!=='on')};
+ $('cardBtn').onclick=openCard;$('rc2').onclick=openCard;$('rcBack').onclick=function(){show('setup')};var clr=$('rcClear'),clrT;clr.onclick=function(){if(!P.cur||view)return;if(clr.dataset.arm){var gone=P.cur;persist(load().filter(function(t){return t.p!==P.cur}));cloudClear(gone);clr.dataset.arm='';clr.textContent=CLR;card()}else{clr.dataset.arm='1';clr.textContent='Press again to clear all results for '+curName();clearTimeout(clrT);clrT=setTimeout(function(){clr.dataset.arm='';clr.textContent=CLR},4000)}};
 
- var syncMsg='',syncing=false;
+ var syncMsg='',syncing=false,others=[],BOOT='alanperestrello@gmail.com',
+  SEED=[{email:'alanperestrello@gmail.com',name:'Alan',role:'admin'},{email:'leoperestrello@gmail.com',name:'Leo',role:'child'}];
  function setSync(m){syncMsg=m;var e=$('syncStatus');if(e)e.textContent=m}
+ function setAuthMsg(m){var e=$('authMsg');e.textContent=m||'';e.classList.toggle('hidden',!m)}
  function signedIn(){return !!(window.TTTSync&&window.TTTSync.user)}
+ function canCloud(){return !!(acct&&acct.role&&signedIn())}
  function dkey(t){return t.d+'_'+t.p}
  function resolve(alias,id){var n=0;while(alias[id]&&n++<5)id=alias[id];return id}
- function cloudPush(rec){if(!signedIn())return;TTTSync.pushTests([rec]).catch(function(){setSync('Could not save online yet. It will upload at the next sync.')})}
- function cloudPeople(){if(!signedIn())return;TTTSync.pushPeople({list:P.list,alias:P.alias}).catch(function(){})}
- function cloudClear(pid){if(!signedIn()||!pid)return;var ids=[pid];Object.keys(P.alias).forEach(function(k){if(resolve(P.alias,k)===pid)ids.push(k)});TTTSync.deleteByPeople(ids).catch(function(){setSync('Could not clear the online copy. Try again when online.')})}
+ function viewList(){return view?view.tests:load().filter(function(t){return t.p===P.cur})}
+ function viewName(){return view?view.name:curName()}
+ function cloudPush(rec){if(!canCloud()||rec.p!==acct.email)return;TTTSync.pushTests([rec]).catch(function(){setSync('Could not save online yet. It will upload at the next sync.')})}
+ function cloudClear(pid){if(!canCloud()||pid!==acct.email)return;TTTSync.deleteMine().catch(function(){setSync('Could not clear the online copy. Try again when online.')})}
+ // Merge a backup file into this device (names matched by name, results by time and person).
  function reconcile(r){
   var alias={},k;
   for(k in P.alias)alias[k]=P.alias[k];
@@ -338,29 +362,31 @@ function openCard(){sync();card();show('rc')}
   var all=P.list.concat(remoteList),best={};
   all.forEach(function(p){var n=p.name.toLowerCase();if(!best[n]||p.id<best[n])best[n]=p.id});
   var seen={},list=[];
-  all.forEach(function(p){var c=best[p.name.toLowerCase()];if(p.id!==c)alias[p.id]=c;if(!seen[c]){seen[c]=1;list.push({id:c,name:p.name})}});
+  all.forEach(function(p){var c=best[p.name.toLowerCase()];if(p.id!==c)alias[p.id]=c;if(!seen[c]){seen[c]=1;list.push({id:c,name:p.name,acct:p.acct||undefined})}});
   var cur=P.cur?resolve(alias,P.cur):null;
   function fix(t){t.p=resolve(alias,t.p);return t}
-  var remoteIds={};
-  var remote=r.tests.filter(okRec).map(function(t){if(t._id)remoteIds[t._id]=1;delete t._id;return fix(t)});
+  var remote=r.tests.filter(okRec).map(fix);
   var local=load().map(fix),have={},merged=[];
   local.concat(remote).forEach(function(t){var q=dkey(t);if(!have[q]){have[q]=1;merged.push(t)}});
   merged.sort(function(a,b){return a.d-b.d});
-  var push=merged.filter(function(t){return !remoteIds[dkey(t)]});
-  var rp=r.people||{};
-  var changed=!r.people||JSON.stringify(rp.list)!==JSON.stringify(list)||JSON.stringify(rp.alias||{})!==JSON.stringify(alias);
   P.list=list;P.alias=alias;P.cur=cur;saveP();persist(merged);
-  return {push:push,people:{list:list,alias:alias},changed:changed,count:merged.length};
+  return {push:merged,count:merged.length};
  }
- function refreshViews(){sync();if(!$('rc').classList.contains('hidden'))card()}
+ function refreshViews(){sync();renderWho();if(!$('rc').classList.contains('hidden'))card()}
+ // Sync the signed-in person's own results with the online copy.
  function runSync(){
-  if(!signedIn()||syncing)return;
+  if(!canCloud()||syncing)return;
   syncing=true;setSync('Syncing...');
-  TTTSync.pull().then(function(r){
-   var res=reconcile(r);
-   return Promise.all([TTTSync.pushTests(res.push),res.changed?TTTSync.pushPeople(res.people):null]).then(function(){return res});
-  }).then(function(res){
-   syncing=false;setSync('Synced at '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'. '+res.count+(res.count===1?' test':' tests')+' in total.');refreshViews();
+  TTTSync.pull(acct.email).then(function(remote){
+   var remoteIds={},have={},merged=[];
+   remote=remote.filter(okRec).map(function(t){remoteIds[t._id]=1;delete t._id;return t});
+   load().concat(remote).forEach(function(t){var q=dkey(t);if(!have[q]){have[q]=1;merged.push(t)}});
+   merged.sort(function(a,b){return a.d-b.d});
+   var mine=merged.filter(function(t){return t.p===acct.email});
+   persist(merged);
+   return TTTSync.pushTests(mine.filter(function(t){return !remoteIds[dkey(t)]})).then(function(){return mine.length});
+  }).then(function(n){
+   syncing=false;setSync('Synced at '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'. '+n+(n===1?' test':' tests')+' saved online.');refreshViews();
   }).catch(function(e){syncing=false;setSync('Could not sync: '+(e&&e.code?String(e.code).replace('permission-denied','permission denied. Check the Firestore rules are deployed.'):'check your connection')+'.')});
  }
  function exportBackup(){
@@ -380,12 +406,129 @@ function openCard(){sync();card();show('rc')}
     var res=reconcile({people:d.people,tests:d.history.filter(okRec)});
     refreshViews();
     setSync('Restored. '+res.count+(res.count===1?' test':' tests')+' in total on this device.');
-    if(signedIn()){TTTSync.pushTests(res.push).then(function(){return TTTSync.pushPeople(res.people)}).catch(function(){setSync('Restored here, but the online copy could not be updated yet.')})}
+    if(canCloud()){TTTSync.pushTests(res.push.filter(function(t){return t.p===acct.email})).catch(function(){setSync('Restored here, but the online copy could not be updated yet.')})}
     $('restoreNote').textContent='Backup restored.';
    }catch(e){$('restoreNote').textContent='That file is not a Times Table Test backup.'}
   };
   fr.readAsText(file);
  }
+ // ----- accounts and roles
+ function adoptAccount(){
+  var e=acct.email,f=P.list.filter(function(x){return x.id===e})[0];
+  if(f){f.name=acct.name;f.acct=true}else P.list.push({id:e,name:acct.name,acct:true});
+  P.cur=e;saveP();
+ }
+ function releaseAccount(){
+  var c=P.list.filter(function(x){return x.id===P.cur})[0];
+  if(c&&c.acct){var first=P.list.filter(function(x){return !x.acct})[0];P.cur=first?first.id:null;saveP()}
+ }
+ function seedUsers(){
+  return SEED.reduce(function(pr,u){return pr.then(function(){return TTTSync.saveUser(u)})},Promise.resolve());
+ }
+ function loadOthers(){
+  others=[];acct.teachers=[];acct.shares=[];
+  var T=TTTSync;
+  if(acct.role==='admin')return T.listUsers().then(function(l){others=l.filter(function(u){return u.email!==acct.email}).sort(function(a,b){return a.name.localeCompare(b.name)})});
+  if(acct.role==='teacher')return T.listMyChildren().then(function(l){others=l.sort(function(a,b){return a.name.localeCompare(b.name)})});
+  if(acct.role==='child')return Promise.all([T.listTeachers(),T.getShares()]).then(function(r){acct.teachers=r[0];acct.shares=r[1]});
+  return Promise.resolve();
+ }
+ function onAuth(){
+  var T=window.TTTSync;
+  acct=null;view=null;others=[];setAuthMsg('');
+  if(!T||!T.user){releaseAccount();renderAll();return}
+  var email=T.email();
+  setSync('Signing in...');renderAll();
+  T.getMyRole().then(function(r){
+   if(r)return r;
+   if(email!==BOOT)return null;
+   return seedUsers().then(function(){return T.getMyRole()});
+  }).then(function(r){
+   if(!r){acct={email:email,name:T.user.displayName||email,role:null};setSync('');setAuthMsg('Your Google account ('+email+') has not been added yet. Ask an admin to add you. You can still use the app on this device.');renderAll();return}
+   acct={email:email,name:r.name,role:r.role};
+   adoptAccount();
+   return loadOthers().then(function(){setSync('');renderAll();runSync()});
+  }).catch(function(e){
+   acct={email:email,name:T.user.displayName||email,role:null};
+   setAuthMsg('Could not load your account: '+(e&&e.code?String(e.code).replace('permission-denied','permission denied. Check the Firestore rules are deployed.'):'check your connection')+'.');
+   renderAll();
+  });
+ }
+ function selectView(email){
+  if(!acct||email===acct.email){view=null;renderWho();card();return}
+  var u=others.filter(function(x){return x.email===email})[0];if(!u)return;
+  view={email:email,name:u.name,tests:[],loading:true};renderWho();card();
+  TTTSync.pull(email).then(function(tests){
+   if(!view||view.email!==email)return;
+   view.tests=tests.filter(okRec).map(function(t){delete t._id;return t}).sort(function(a,b){return a.d-b.d});view.loading=false;card();
+  }).catch(function(){if(!view||view.email!==email)return;view.loading=false;view.error=true;card()});
+ }
+ function renderWho(){
+  var role=acct&&acct.role;
+  $('nameRow').classList.toggle('hidden',!!role);
+  $('acctRow').classList.toggle('hidden',!role);
+  if(role){$('acctName').textContent=acct.name;$('addRow').classList.add('hidden');$('addRow2').classList.add('hidden')}
+  var priv=role==='admin'||role==='teacher';
+  $('who2Row').classList.toggle('hidden',role==='child');
+  $('who2lab').textContent=priv?'Report for':'Name';
+  if(priv){
+   var s=$('who2');s.innerHTML='';
+   var o=document.createElement('option');o.value=acct.email;o.textContent=view?'My results':'Select a name';s.appendChild(o);
+   var list=others.filter(function(u){return u.role==='child'||u.role==='teacher'});
+   var first=function(u){return u.name.split(' ')[0]},seen={};
+   list.forEach(function(u){var f=first(u).toLowerCase();seen[f]=(seen[f]||0)+1});
+   list.slice().sort(function(a,b){return first(a).localeCompare(first(b))||a.name.localeCompare(b.name)}).forEach(function(u){o=document.createElement('option');o.value=u.email;o.textContent=seen[first(u).toLowerCase()]>1?u.name:first(u);s.appendChild(o)});
+   s.value=view?view.email:acct.email;
+  }
+ }
+ function renderAuthBar(){
+  var B=$('authBar'),T=window.TTTSync;B.innerHTML='';
+  if(!T)return;
+  if(!T.user){var si=mk('button','','Sign in',B);si.onclick=function(){setAuthMsg('');T.signIn().catch(function(e){setAuthMsg(authMsg(e))})};return}
+  var who=mk('span','',undefined,B);mk('b','',acct?acct.name:(T.user.displayName||T.user.email),who);
+  if(acct&&acct.role)mk('span','rolechip',acct.role,who);
+  mk('button','alt','Sign out',B).onclick=function(){T.signOut()};
+ }
+ function renderAll(){renderAuthBar();renderWho();renderSync();if(!$('rc').classList.contains('hidden'))card();if(!$('users').classList.contains('hidden'))renderUsers()}
+ // ----- users screen (admin)
+ var editing='';
+ function renderUsers(){
+  var L=$('userList');L.innerHTML='';
+  if(!acct||acct.role!=='admin'){mk('p','note','Only admins can manage users.',L);return}
+  mk('p','note','Loading...',L);
+  TTTSync.listUsers().then(function(list){
+   list.sort(function(a,b){return a.name.localeCompare(b.name)});
+   others=list.filter(function(u){return u.email!==acct.email});
+   L.innerHTML='';
+   var tb=mk('table','log',undefined,L),hd=mk('tr','',undefined,mk('thead','',undefined,tb));
+   ['Name','Email','Role',''].forEach(function(x){mk('th','',x,hd)});
+   var bd=mk('tbody','',undefined,tb);
+   list.forEach(function(u){
+    var r=mk('tr','',undefined,bd);mk('td','',u.name,r);mk('td','',u.email,r);mk('td','',u.role,r);
+    var c=mk('td','',undefined,r),e=mk('button','alt sm','Edit',c);
+    e.onclick=function(){editing=u.email;$('uEmail').value=u.email;$('uEmail').readOnly=true;$('uName').value=u.name;$('uRole').value=u.role;$('uHead').textContent='Edit '+u.name;$('uErr').textContent='';$('uName').focus()};
+    if(u.email!==acct.email){
+     var d=mk('button','alt sm','Delete',c);d.style.marginLeft='6px';
+     d.onclick=function(){
+      if(!d.dataset.arm){d.dataset.arm='1';d.textContent='Sure?';setTimeout(function(){d.dataset.arm='';d.textContent='Delete'},4000);return}
+      TTTSync.deleteUser(u.email).then(renderUsers).catch(function(){$('uErr').textContent='Could not delete that user.'});
+     };
+    }
+   });
+   renderWho();
+  }).catch(function(){L.innerHTML='';mk('p','note','The users could not be loaded. Check your connection.',L)});
+ }
+ function resetUserForm(){editing='';$('uEmail').value='';$('uEmail').readOnly=false;$('uName').value='';$('uRole').value='child';$('uHead').textContent='Add a user';$('uErr').textContent=''}
+ function showUsers(){resetUserForm();show('users');renderUsers()}
+ $('uBack').onclick=function(){show('setup')};
+ $('uSave').onclick=function(){
+  var email=$('uEmail').value.trim().toLowerCase(),name=$('uName').value.trim().replace(/\s+/g,' '),role=$('uRole').value,e='';
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))e='Enter a valid email address.';
+  else if(!name)e='Enter a name.';
+  else if(acct&&email===acct.email&&role!=='admin')e='You cannot remove your own admin role here.';
+  $('uErr').textContent=e;if(e)return;
+  TTTSync.saveUser({email:email,name:name,role:role}).then(function(){resetUserForm();renderUsers()}).catch(function(){$('uErr').textContent='Could not save that user. Are the Firestore rules deployed?'});
+ };
  var PRESETS={
   easy:{n:20,t:5,lo:1,hi:10,mn:1,mx:10,mode:"enter",tmode:"off",tsec:null,pad:"auto"},
   hard:{n:25,t:2.5,lo:1,hi:12,mn:2,mx:12,mode:"enter",tmode:"on",tsec:6,pad:"auto"},
@@ -461,15 +604,33 @@ function openCard(){sync();card();show('rc')}
   mk('h2','','Online results',B);
   if(!T){mk('p','note','Results are saved on this device only.',B)}
   else if(!T.user){
-   mk('p','note','Sign in with Google to keep results online and see them on your other devices.',B);
-   var si=mk('button','alt','Sign in with Google',B);
-   si.onclick=function(){setSync('');T.signIn().catch(function(e){setSync(authMsg(e))})};
-   var se=mk('p','note',syncMsg,B);se.id='syncStatus';se.setAttribute('role','alert');
+   mk('p','note','Sign in with Google to keep results online. What you can see then depends on your role.',B);
+   var se=mk('p','note',syncMsg,B);se.id='syncStatus';se.setAttribute('role','status');
+  }else if(!acct){
+   mk('p','note','Signing in...',B);
+   var s0=mk('p','note',syncMsg,B);s0.id='syncStatus';s0.setAttribute('role','status');
+  }else if(!acct.role){
+   mk('p','note','Signed in as '+acct.email+', but this account has not been added yet.',B);
   }else{
-   mk('p','note','Signed in as '+(T.user.email||T.user.displayName||'your Google account')+'.',B);
+   mk('p','note','Signed in as '+acct.name+' ('+acct.role+'). Results are saved under your own login.',B);
    var st=mk('p','note',syncMsg,B);st.id='syncStatus';st.setAttribute('role','status');
    mk('button','alt','Sync now',B).onclick=runSync;
-   mk('button','alt','Sign out',B).onclick=function(){T.signOut()};
+   if(acct.role==='admin')mk('button','alt','Manage users',B).onclick=showUsers;
+   if(acct.role==='child'){
+    mk('h2','','Who can see my results',B);
+    if(!acct.teachers.length)mk('p','note','No teachers have been added yet.',B);
+    else{
+     mk('p','note','Choose the teachers who may see your results. You can change this at any time.',B);
+     var boxes=[];
+     acct.teachers.forEach(function(t,i){
+      var l=mk('label','chk',undefined,B),c=document.createElement('input');c.type='checkbox';c.checked=acct.shares.indexOf(t.email)>=0;l.appendChild(c);l.appendChild(document.createTextNode(t.name));boxes.push([c,t.email]);
+     });
+     mk('button','alt','Save who can see my results',B).onclick=function(){
+      var sel=boxes.filter(function(x){return x[0].checked}).map(function(x){return x[1]});
+      TTTSync.setShares(sel).then(function(){acct.shares=sel;setSync('Saved. '+(sel.length?'Shared with '+sel.length+(sel.length===1?' teacher.':' teachers.'):'Not shared with any teacher.'))}).catch(function(){setSync('Could not save. Check your connection.')});
+     };
+    }
+   }
   }
   mk('button','alt','Download backup',B).onclick=exportBackup;
   mk('button','alt','Restore from backup',B).onclick=function(){$('restoreFile').click()};
@@ -479,10 +640,10 @@ function openCard(){sync();card();show('rc')}
   var rn=mk('p','note','',B);rn.id='restoreNote';rn.setAttribute('role','status');
  }
  $('restoreFile').onchange=function(){if(this.files&&this.files[0])importBackup(this.files[0]);this.value=''};
- window.addEventListener('tttautherror',function(e){setSync(authMsg(e.detail))});
- window.addEventListener('tttsync',renderSync);
- window.addEventListener('tttauth',function(){renderSync();if(signedIn())runSync()});
- renderSync();
+ window.addEventListener('tttautherror',function(e){setAuthMsg(authMsg(e.detail))});
+ window.addEventListener('tttsync',function(){renderAll()});
+ window.addEventListener('tttauth',onAuth);
+ renderAll();
  $("again").onclick=start;
  $("change").onclick=function(){run++;clearInterval(timer);show("setup")};
  $("go").onclick=function(){submit();$("a").focus()};$("quiz").addEventListener("mousedown",function(e){e.preventDefault();$("a").focus()});$("a").addEventListener("blur",function(e){if(e.relatedTarget&&$("quiz").contains(e.relatedTarget))return;if(!$("quiz").classList.contains("hidden"))setTimeout(function(){if(!$("quiz").classList.contains("hidden"))$("a").focus()},0)});

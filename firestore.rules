@@ -1,39 +1,98 @@
 rules_version = '2';
 
-// Each signed-in user can read and write only their own data under /users/{uid}.
-// Everything else is denied.
+// Roles: admin, teacher, child. Everything is keyed by the person's lowercase Google email.
+//
+//   roles/{email}                    admin-managed: { name, role }
+//   shares/{childEmail}              child-managed: { teachers: [teacher emails] }
+//   results/{email}/tests/{testId}   one document per saved test
+//
+// Who can read results of {email}: that person, any admin, and a teacher the child has chosen.
+// Only the owner can write their own results. Only an admin can change roles.
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    function isOwner(uid) {
-      return request.auth != null && request.auth.uid == uid;
+    // The first admin. This account can always manage the users table, so the
+    // table can be created from the app. Everyone else needs a roles document.
+    function bootstrapAdmin() { return 'alanperestrello@gmail.com'; }
+
+    function signedIn() {
+      return request.auth != null && request.auth.token.email_verified == true;
+    }
+    function me() { return request.auth.token.email.lower(); }
+
+    function roleDoc(email) { return /databases/$(database)/documents/roles/$(email); }
+    function sharesDoc(email) { return /databases/$(database)/documents/shares/$(email); }
+
+    function registered() { return signedIn() && exists(roleDoc(me())); }
+    function myRole() { return get(roleDoc(me())).data.role; }
+    function isAdmin() {
+      return signedIn() && (me() == bootstrapAdmin() || (registered() && myRole() == 'admin'));
+    }
+    function isTeacher() { return registered() && myRole() == 'teacher'; }
+    function sharedWithMe(child) {
+      return exists(sharesDoc(child)) && me() in get(sharesDoc(child)).data.teachers;
     }
 
-    // One document per saved test. `per` is stored as a JSON string because
-    // Firestore does not allow arrays inside arrays.
-    match /users/{uid}/tests/{testId} {
-      allow read, delete: if isOwner(uid);
-      allow create, update: if isOwner(uid)
-        && request.resource.data.keys().hasOnly(['d', 'p', 's', 'per', 'f'])
+    function validRole(email) {
+      return request.resource.data.keys().hasOnly(['name', 'role'])
+        && request.resource.data.keys().hasAll(['name', 'role'])
+        && request.resource.data.role in ['admin', 'teacher', 'child']
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.name.size() <= 40
+        && email == email.lower()
+        && email.matches('.+@.+');
+    }
+
+    function validTest() {
+      return request.resource.data.keys().hasOnly(['d', 'p', 's', 'per', 'f'])
         && request.resource.data.keys().hasAll(['d', 'p', 's', 'per'])
         && request.resource.data.d is number
         && request.resource.data.p is string
-        && request.resource.data.p.size() <= 40
+        && request.resource.data.p.size() <= 80
         && request.resource.data.s is map
         && request.resource.data.per is string
         && request.resource.data.per.size() <= 20000
         && (!('f' in request.resource.data) || request.resource.data.f is map);
     }
 
-    // A single document holding the list of names and any id aliases.
-    match /users/{uid}/meta/people {
-      allow read, delete: if isOwner(uid);
-      allow create, update: if isOwner(uid)
-        && request.resource.data.keys().hasOnly(['list', 'alias', 'updated'])
-        && request.resource.data.list is list
-        && request.resource.data.list.size() <= 50
-        && request.resource.data.alias is map
-        && request.resource.data.updated is number;
+    match /roles/{email} {
+      allow get: if signedIn() && (
+        me() == email
+        || isAdmin()
+        || (isTeacher() && sharedWithMe(email))
+        || (registered() && resource.data.role == 'teacher'));
+      // Admins can list everyone. Registered users can only list teachers (query by role).
+      allow list: if signedIn() && (
+        isAdmin()
+        || (registered() && resource.data.role == 'teacher'));
+      allow create, update: if isAdmin() && validRole(email);
+      allow delete: if isAdmin();
+    }
+
+    match /shares/{child} {
+      allow get: if signedIn() && (
+        me() == child
+        || isAdmin()
+        || (isTeacher() && me() in resource.data.teachers));
+      // A teacher can list the children who chose them (query with array-contains).
+      allow list: if signedIn() && (
+        isAdmin()
+        || (isTeacher() && me() in resource.data.teachers));
+      allow create, update: if registered() && me() == child && myRole() == 'child'
+        && request.resource.data.keys().hasOnly(['teachers'])
+        && request.resource.data.teachers is list
+        && request.resource.data.teachers.size() <= 20;
+      allow delete: if signedIn() && me() == child;
+    }
+
+    match /results/{owner}/tests/{testId} {
+      allow read: if signedIn() && (
+        me() == owner
+        || isAdmin()
+        || (isTeacher() && sharedWithMe(owner)));
+      allow create, update: if registered() && me() == owner && validTest();
+      allow delete: if signedIn() && me() == owner;
     }
   }
 }
