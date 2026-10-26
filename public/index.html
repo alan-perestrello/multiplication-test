@@ -51,6 +51,7 @@ tr.click{cursor:pointer}tr.click:hover td{background:var(--bg)}tr.click:focus-vi
 .presets{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 8px}button.preset{margin:0;padding:10px 4px;font-size:1rem;background:transparent;color:var(--ink);border:2px solid var(--edge)}button.preset small{display:block;font-weight:400;font-size:.78rem;color:var(--mute)}button.preset[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}button.preset[aria-pressed=true] small{color:var(--on-accent)}.sum{margin:0 0 12px}h1:focus{outline:none}
 .ttgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px;margin:0 0 10px}.tt{border-radius:12px;padding:8px 4px;text-align:center;border:2px solid var(--line);background:var(--bg)}.tt b{display:block;font-size:1.05rem}.tt span{font-size:.9rem}.tt.good{background:var(--good-bg);border-color:var(--good)}.tt.mid{border-color:var(--warn)}.tt.low{background:var(--bad-bg);border-color:var(--bad)}.trend{font-weight:600;margin:0 0 6px}.plot.v{justify-content:center}.plot.v .col{max-width:72px}
 .head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}.head h1{margin:8px 0 4px}.authbar{display:flex;gap:8px;align-items:center;margin-top:12px;font-size:.95rem}.authbar b{font-weight:600}.authbar button{width:auto;padding:8px 14px;font-size:1rem;margin:0}.authbar button.alt{margin:0}.authmsg{margin:0 0 12px}.sm{width:auto!important;padding:6px 12px!important;font-size:.9rem!important;margin:0!important}.who{display:flex;gap:10px;align-items:center;margin:0 0 12px}.chk{display:flex;gap:10px;align-items:center;padding:8px 0}.chk input{width:22px;height:22px}.rolechip{display:inline-block;padding:1px 9px;border-radius:999px;font-size:.78rem;font-weight:600;border:2px solid var(--edge);margin-left:6px}
+.lbl{font-weight:500}
 .tag{display:inline-block;margin-left:8px;padding:1px 9px;border-radius:999px;font-size:.78rem;font-weight:600;background:var(--accent);color:var(--on-accent)}
 details.set{margin:0 0 14px;border:2px solid var(--line);border-radius:12px;padding:8px 12px}details.set summary{cursor:pointer;font-weight:600}details.set summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}dl.sl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:10px 0 2px}dl.sl dt{color:var(--mute)}dl.sl dd{margin:0;font-weight:500}
 .score .pc{font-size:1.8rem;color:var(--mute);white-space:nowrap}
@@ -66,9 +67,7 @@ details.set{margin:0 0 14px;border:2px solid var(--line);border-radius:12px;padd
  <p class="note authmsg hidden" id="authMsg" role="alert"></p>
  <p class="note hidden" id="storeWarn" role="status"></p>
  <div class="card">
-  <div class="row" id="nameRow"><label for="who">Name</label><select id="who"></select></div>
-  <div class="row hidden" id="acctRow"><span>Taking the test as</span><b id="acctName"></b></div>
-  <div class="row hidden" id="addRow"><input id="newName" type="text" maxlength="20" placeholder="Type a name" aria-label="New name"><button id="addBtn">Add</button></div>
+  <div class="row" id="acctRow"><span class="lbl">Taking the test as<span class="hint" id="acctHint"></span></span><b id="acctName"></b></div>
   <div class="presets" role="group" aria-label="Quick start">
    <button type="button" class="preset" data-p="easy" aria-pressed="false">Easy<small>20 questions, 5 min</small></button>
    <button type="button" class="preset" data-p="hard" aria-pressed="false">Hard<small>25 questions, timed</small></button>
@@ -167,8 +166,7 @@ details.set{margin:0 0 14px;border:2px solid var(--line);border-radius:12px;padd
 
  function start(){
   var n=num("n"),t=num("t"),lo=num("lo"),hi=num("hi"),mx=num("mx"),mn=num("mn"),e="";
-  if(!curName())e="Select a name or add one first.";
-  else if(!(n>=1&&n<=100))e="Questions must be between 1 and 100.";
+  if(!(n>=1&&n<=100))e="Questions must be between 1 and 100.";
   else if(!(t===0||(t>=.5&&t<=60)))e="Time limit must be 0 (no limit) or between 0.5 and 60 minutes.";
   else if(!(lo>=1&&hi>=lo&&hi<=100))e="Tables must be between 1 and 100, and the first no higher than the last.";
   else if($("tmode").value==="on"&&!(num("tsec")>=1&&num("tsec")<=120))e="Seconds per question must be between 1 and 120.";
@@ -179,6 +177,7 @@ details.set{margin:0 0 14px;border:2px solid var(--line);border-radius:12px;padd
  }
 
  function begin(c,fx){
+  ensureProfile();
   cfg=c;total=c.n;limit=c.t*60;auto=c.m==="auto";tmode=c.tq>0;baseQ=c.tq;focus=fx||null;view=null;sched=fx&&fx.k==="time"?fx:null;padOn=usePad();$("a").setAttribute("inputmode",padOn?"none":"numeric");$("pad").classList.toggle("hidden",!padOn);
   qs=build(total,c.lo,c.hi,c.mn,c.mx);
   run++;idx=0;right=0;log=[];startT=Date.now();
@@ -338,7 +337,7 @@ function focusBox(par,rec){
 }
 function openCard(){view=null;sync();renderWho();card();show('rc')}
  $("start").onclick=start;
- var PKEY='ttt-people-v1',P=loadP(),CLR='Clear results for this name';function loadP(){try{var d=JSON.parse(localStorage.getItem(PKEY)||'null');if(d&&Array.isArray(d.list)){d.list=d.list.filter(function(p){return !!p&&typeof p.id==='string'&&typeof p.name==='string'});if(!d.alias||typeof d.alias!=='object')d.alias={};return d}}catch(e){}return {list:[],cur:null,alias:{}}}function saveP(){try{localStorage.setItem(PKEY,JSON.stringify(P))}catch(e){}}function curName(){for(var i=0;i<P.list.length;i++)if(P.list[i].id===P.cur&&(!P.list[i].acct||(acct&&acct.email===P.list[i].id)))return P.list[i].name;return ''}function sync(){['who','who2'].forEach(function(id){if(acct&&acct.role)return;var s=$(id),o;s.innerHTML='';if(!curName()){o=document.createElement('option');o.value='';o.textContent='Select a name';s.appendChild(o)}P.list.filter(function(p){return !p.acct}).forEach(function(p){o=document.createElement('option');o.value=p.id;o.textContent=p.name;s.appendChild(o)});o=document.createElement('option');o.value='__add';o.textContent='+ Add name';s.appendChild(o);s.value=curName()?P.cur:''})}function bindWho(sid,rid,iid,bid,after){var s=$(sid),r=$(rid),i=$(iid),b=$(bid);s.onchange=function(){if(acct&&acct.role&&sid==='who2'){selectView(s.value);return}if(s.value==='__add'){r.classList.remove('hidden');i.value='';i.focus();s.value=curName()?P.cur:''}else{P.cur=s.value||null;saveP();r.classList.add('hidden');sync();after()}};function add(){var n=i.value.trim().replace(/\s+/g,' ');if(!n)return;var ex=P.list.filter(function(p){return p.name.toLowerCase()===n.toLowerCase()})[0];if(ex)P.cur=ex.id;else{var id=Date.now().toString(36)+Math.random().toString(36).slice(2,5);if(!P.list.length){var h=load();h.forEach(function(t){if(!t.p)t.p=id});persist(h)}P.list.push({id:id,name:n});P.cur=id}saveP();r.classList.add('hidden');sync();after()}b.onclick=add;i.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();add()}})}bindWho('who','addRow','newName','addBtn',function(){$('err').textContent=''});bindWho('who2','addRow2','newName2','addBtn2',card);sync();function timeoutQ(){if(locked)return;locked=true;$('a').value='';held='';var q=qs[idx],r=run;log.push({q:q,given:null,ok:false,secs:null});var fb=$('fb');fb.textContent='Time up. '+q[0]+' \u00d7 '+q[1]+' = '+q[0]*q[1];fb.className='fb no';$('a').className='ans no';$('qtime').textContent='0s';setTimeout(function(){if(r!==run)return;idx++;if(idx>=total)finish(false);else next()},1600)}$('tmode').onchange=function(){$('tsRow').classList.toggle('hidden',this.value!=='on')};
+ var PKEY='ttt-people-v1',P=loadP(),CLR='Clear results for this name';function loadP(){try{var d=JSON.parse(localStorage.getItem(PKEY)||'null');if(d&&Array.isArray(d.list)){d.list=d.list.filter(function(p){return !!p&&typeof p.id==='string'&&typeof p.name==='string'});if(!d.alias||typeof d.alias!=='object')d.alias={};return d}}catch(e){}return {list:[],cur:null,alias:{}}}function saveP(){try{localStorage.setItem(PKEY,JSON.stringify(P))}catch(e){}}function curName(){for(var i=0;i<P.list.length;i++)if(P.list[i].id===P.cur&&(!P.list[i].acct||(acct&&acct.email===P.list[i].id)))return P.list[i].name;return ''}function sync(){['who2'].forEach(function(id){if(acct&&acct.role)return;var s=$(id),o;s.innerHTML='';if(!curName()){o=document.createElement('option');o.value='';o.textContent='Select a name';s.appendChild(o)}P.list.filter(function(p){return !p.acct}).forEach(function(p){o=document.createElement('option');o.value=p.id;o.textContent=p.name;s.appendChild(o)});o=document.createElement('option');o.value='__add';o.textContent='+ Add name';s.appendChild(o);s.value=curName()?P.cur:''})}function bindWho(sid,rid,iid,bid,after){var s=$(sid),r=$(rid),i=$(iid),b=$(bid);s.onchange=function(){if(acct&&acct.role&&sid==='who2'){selectView(s.value);return}if(s.value==='__add'){r.classList.remove('hidden');i.value='';i.focus();s.value=curName()?P.cur:''}else{P.cur=s.value||null;saveP();r.classList.add('hidden');sync();after()}};function add(){var n=i.value.trim().replace(/\s+/g,' ');if(!n)return;var ex=P.list.filter(function(p){return p.name.toLowerCase()===n.toLowerCase()})[0];if(ex)P.cur=ex.id;else{var id=Date.now().toString(36)+Math.random().toString(36).slice(2,5);if(!P.list.length){var h=load();h.forEach(function(t){if(!t.p)t.p=id});persist(h)}P.list.push({id:id,name:n});P.cur=id}saveP();r.classList.add('hidden');sync();after()}b.onclick=add;i.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();add()}})}bindWho('who2','addRow2','newName2','addBtn2',function(){renderWho();card()});sync();function timeoutQ(){if(locked)return;locked=true;$('a').value='';held='';var q=qs[idx],r=run;log.push({q:q,given:null,ok:false,secs:null});var fb=$('fb');fb.textContent='Time up. '+q[0]+' \u00d7 '+q[1]+' = '+q[0]*q[1];fb.className='fb no';$('a').className='ans no';$('qtime').textContent='0s';setTimeout(function(){if(r!==run)return;idx++;if(idx>=total)finish(false);else next()},1600)}$('tmode').onchange=function(){$('tsRow').classList.toggle('hidden',this.value!=='on')};
  $('cardBtn').onclick=openCard;$('rc2').onclick=openCard;$('rcBack').onclick=function(){show('setup')};var clr=$('rcClear'),clrT;clr.onclick=function(){if(!P.cur||view)return;if(clr.dataset.arm){var gone=P.cur;persist(load().filter(function(t){return t.p!==P.cur}));cloudClear(gone);clr.dataset.arm='';clr.textContent=CLR;card()}else{clr.dataset.arm='1';clr.textContent='Press again to clear all results for '+curName();clearTimeout(clrT);clrT=setTimeout(function(){clr.dataset.arm='';clr.textContent=CLR},4000)}};
 
  var syncMsg='',syncing=false,others=[],BOOT='alanperestrello@gmail.com',
@@ -463,11 +462,18 @@ function openCard(){view=null;sync();renderWho();card();show('rc')}
    view.tests=tests.filter(okRec).map(function(t){delete t._id;return t}).sort(function(a,b){return a.d-b.d});view.loading=false;card();
   }).catch(function(){if(!view||view.email!==email)return;view.loading=false;view.error=true;card()});
  }
+ // Device-only use needs somewhere to save results, so an unnamed device gets a Guest profile.
+ function ensureProfile(){
+  if(acct&&acct.role)return;
+  if(curName())return;
+  if(!P.list.some(function(x){return x.id==='guest'}))P.list.push({id:'guest',name:'Guest'});
+  P.cur='guest';saveP();sync();renderWho();
+ }
  function renderWho(){
   var role=acct&&acct.role;
-  $('nameRow').classList.toggle('hidden',!!role);
-  $('acctRow').classList.toggle('hidden',!role);
-  if(role){$('acctName').textContent=acct.name;$('addRow').classList.add('hidden');$('addRow2').classList.add('hidden')}
+  $('acctName').textContent=role?acct.name:(curName()||'Guest');
+  $('acctHint').textContent=role?'':'Choose or add a name on the report card';
+  if(role)$('addRow2').classList.add('hidden');
   var priv=role==='admin'||role==='teacher';
   $('who2Row').classList.toggle('hidden',role==='child');
   $('who2lab').textContent=priv?'Report for':'Name';
